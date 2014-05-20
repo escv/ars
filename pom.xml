@@ -30,5 +30,6 @@
   	<module>ars-reservation</module>
   	<module>ars-masterdata</module>
   	<module>ars-client</module>
+  	<module>ars-ear</module>
   </modules>
 </project>

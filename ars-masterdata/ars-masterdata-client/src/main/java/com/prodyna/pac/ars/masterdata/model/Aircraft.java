@@ -1,4 +1,4 @@
-package com.prodyna.pac.ars.masterdata;
+package com.prodyna.pac.ars.masterdata.model;
 
 import java.io.Serializable;
 
