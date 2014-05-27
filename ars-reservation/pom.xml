@@ -11,7 +11,7 @@
   <name>ars-reservation</name>
   <description>Reservation Model and Services</description>
   <modules>
-  	<module>ars-reservation-client</module>
+  	<module>ars-reservation-api</module>
   	<module>ars-reservation-service</module>
   </modules>
 </project>
