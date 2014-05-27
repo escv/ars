@@ -2,21 +2,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>ars-service</artifactId>
+		<artifactId>ars-api</artifactId>
 		<groupId>com.prodyna.pac.ars</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../..</relativePath>
 	</parent>
-	<artifactId>ars-reservation-service</artifactId>
-	<packaging>war</packaging>
-	<name>ars-reservation-service</name>
-	<description>Service implementations</description>
-
+	<artifactId>ars-masterdata-api</artifactId>
+	<name>ars-masterdata-client</name>
+	<description>shareable resource for masterdata management</description>
 	<dependencies>
 		<dependency>
-			<groupId>com.prodyna.pac.ars</groupId>
-			<artifactId>ars-reservation-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

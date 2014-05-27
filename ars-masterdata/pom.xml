@@ -10,7 +10,7 @@
   <packaging>pom</packaging>
   <name>ars-mesterdata</name>
   <modules>
-  	<module>ars-masterdata-client</module>
+  	<module>ars-masterdata-api</module>
   	<module>ars-masterdata-service</module>
   </modules>
 </project>

@@ -29,7 +29,8 @@
   <modules>
   	<module>ars-reservation</module>
   	<module>ars-masterdata</module>
-  	<module>ars-client</module>
-  	<module>ars-ear</module>
+  	<module>ars-api</module>
+  	<module>ars-dist</module>
+  	<module>ars-service</module>
   </modules>
 </project>
