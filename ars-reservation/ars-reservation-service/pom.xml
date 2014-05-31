@@ -8,7 +8,7 @@
 		<relativePath>../..</relativePath>
 	</parent>
 	<artifactId>ars-reservation-service</artifactId>
-	<packaging>war</packaging>
+	<packaging>ejb</packaging>
 	<name>ars-reservation-service</name>
 	<description>Service implementations</description>
 

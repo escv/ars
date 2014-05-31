@@ -2,10 +2,19 @@
     <wb-module deploy-name="ars-ear-0.0.1-SNAPSHOT">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
-        <dependent-module archiveName="ars-masterdata-service.war" deploy-path="/" handle="module:/resource/ars-masterdata-service/ars-masterdata-service">
+        <dependent-module archiveName="ars-masterdata-api.jar" deploy-path="/lib" handle="module:/resource/ars-masterdata-api/ars-masterdata-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ars-reservation-service.war" deploy-path="/" handle="module:/resource/ars-reservation-service/ars-reservation-service">
+        <dependent-module archiveName="ars-masterdata-service.jar" deploy-path="/" handle="module:/resource/ars-masterdata-service/ars-masterdata-service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ars-reservation-api.jar" deploy-path="/lib" handle="module:/resource/ars-reservation-api/ars-reservation-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ars-reservation-service.jar" deploy-path="/" handle="module:/resource/ars-reservation-service/ars-reservation-service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ars-service-rest.war" deploy-path="/" handle="module:/resource/ars-service-rest/ars-service-rest">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>

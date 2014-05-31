@@ -10,19 +10,37 @@
 	<packaging>ear</packaging>
 	<description>Java EE Ear Deployable maven module</description>
 	<properties>
-        <jboss.directory>C:/Programme/wildfly-8.0.0.Final</jboss.directory>
+        <jboss.directory>/Users/andrealbert/Development/wildfly-8.0.0.Final</jboss.directory>
     </properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.prodyna.pac.ars</groupId>
+			<artifactId>ars-masterdata-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>com.prodyna.pac.ars</groupId>
 			<artifactId>ars-masterdata-service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<type>war</type>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>com.prodyna.pac.ars</groupId>
+			<artifactId>ars-reservation-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>com.prodyna.pac.ars</groupId>
 			<artifactId>ars-reservation-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>com.prodyna.pac.ars</groupId>
+			<artifactId>ars-service-rest</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<type>war</type>
 		</dependency>
@@ -35,7 +53,6 @@
 				<version>2.9</version>
 				<configuration>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
-
 					<fileNameMapping>no-version</fileNameMapping>
 				</configuration>
 			</plugin>

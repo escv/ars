@@ -18,8 +18,7 @@ public class User implements Serializable {
 	
 	private String email;
 	
-	private Set<UserRole> roles;
-
+	
 	public long getId() {
 		return id;
 	}
@@ -44,15 +43,4 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public Iterable<UserRole> getRoles() {
-		return roles;
-	}
-
-	public void addRole(UserRole role) {
-		this.roles.add(role);
-	}
-	
-	public void removeRole(UserRole role) {
-		this.roles.remove(role);
-	}
 }

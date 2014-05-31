@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>ars-masterdata-service</artifactId>
 	<name>ars-masterdata-service</name>
-	<packaging>war</packaging>
+	<packaging>ejb</packaging>
 	<description>Service implementations for masterdata management</description>
 	
 	<dependencies>

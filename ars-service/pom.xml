@@ -20,6 +20,18 @@
 			<type>pom</type>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.arquillian</groupId>
+			<artifactId>arquillian-bom</artifactId>
+			<version>1.1.4.Final</version>
+			<scope>import</scope>
+            <type>pom</type>
+		</dependency>
+		<dependency>
+		    <groupId>org.jboss.arquillian.junit</groupId>
+		    <artifactId>arquillian-junit-container</artifactId>
+		    <scope>test</scope>
+		</dependency>
 	</dependencies>
 	
 	<build>
@@ -47,4 +59,7 @@
 		</pluginManagement>
 	</build>
 
+	<modules>
+		<module>ars-service-rest</module>
+	</modules>
 </project>

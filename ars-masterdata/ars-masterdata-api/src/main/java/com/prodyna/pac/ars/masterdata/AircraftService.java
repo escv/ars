@@ -8,5 +8,11 @@ public interface AircraftService {
 
 	Aircraft addAircraft(Aircraft aircraft);
 	
+	void updateAircraft(Aircraft aircraft);
+	
 	List<Aircraft> readAllAircrafts();
+	
+	Aircraft readAircraft(long id);
+	
+	void removeAircraft(long id);
 }
