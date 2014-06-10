@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Aircraft implements Serializable {
@@ -15,6 +16,10 @@ public class Aircraft implements Serializable {
 	
 	private String name;
 	
+	private String tailsign;
+	
+	
+	@ManyToOne
 	private AircraftType type;
 
 	public long getId() {
@@ -42,33 +47,14 @@ public class Aircraft implements Serializable {
 		this.type = type;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
+	public String getTailsign() {
+		return tailsign;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Aircraft other = (Aircraft) obj;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+	public void setTailsign(String tailsign) {
+		this.tailsign = tailsign;
 	}
+
 	
 	
 }

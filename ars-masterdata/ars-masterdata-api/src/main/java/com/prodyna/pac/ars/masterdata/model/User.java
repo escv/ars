@@ -1,10 +1,10 @@
 package com.prodyna.pac.ars.masterdata.model;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class User implements Serializable {
@@ -17,6 +17,9 @@ public class User implements Serializable {
 	private String name;
 	
 	private String email;
+	
+	@NotNull
+	private String password;
 	
 	
 	public long getId() {
@@ -42,5 +45,14 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 
 }
