@@ -5,13 +5,12 @@
 		<groupId>com.prodyna.pac.ars</groupId>
 		<artifactId>ars</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>ars-service</artifactId>
-	<name>ars-service</name>
 	<packaging>pom</packaging>
-	<description>Common Module for all service implementations</description>
-
+	<name>ars-service</name>
+	<description>module for common service related code and config</description>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.arquillian.core</groupId>
@@ -32,13 +31,8 @@
 			<version>1.1.4.Final</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
+	
 	<profiles>
 		<profile>
 			<id>jbossas-managed-wildfly-8</id>
@@ -46,13 +40,6 @@
 		        <activeByDefault>true</activeByDefault>
 		    </activation>
 			<dependencies>
-				<dependency>
-					<groupId>org.jboss.spec</groupId>
-					<artifactId>jboss-javaee-7.0</artifactId>
-					<version>1.0.0.Final</version>
-					<type>pom</type>
-					<scope>provided</scope>
-				</dependency>
 				<dependency>
 					<groupId>org.wildfly</groupId>
 					<artifactId>wildfly-arquillian-container-managed</artifactId>
@@ -95,8 +82,4 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
-	<modules>
-		<module>ars-service-rest</module>
-	</modules>
 </project>

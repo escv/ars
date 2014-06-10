@@ -16,6 +16,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.prodyna.pac.ars</groupId>
+			<artifactId>ars-service-ejb</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>com.prodyna.pac.ars</groupId>
 			<artifactId>ars-masterdata-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<type>jar</type>

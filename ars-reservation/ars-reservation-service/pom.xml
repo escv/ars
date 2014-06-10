@@ -18,6 +18,11 @@
 			<artifactId>ars-reservation-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.prodyna.pac.ars</groupId>
+			<artifactId>ars-service-ejb</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 </project>

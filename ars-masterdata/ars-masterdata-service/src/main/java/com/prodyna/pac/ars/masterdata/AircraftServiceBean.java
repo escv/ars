@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
@@ -16,6 +17,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.slf4j.Logger;
+
 import com.prodyna.pac.ars.masterdata.model.Aircraft;
 
 @Stateless
@@ -23,6 +26,9 @@ import com.prodyna.pac.ars.masterdata.model.Aircraft;
 @Path("/aircraft")
 public class AircraftServiceBean implements AircraftService {
 
+	@Inject
+    private Logger log;
+	
 	@PersistenceContext
 	private EntityManager em;
 	
@@ -39,6 +45,7 @@ public class AircraftServiceBean implements AircraftService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public List<Aircraft> readAllAircrafts() {
+		this.log.debug("Loading list of all aircrafts");
 		return (List<Aircraft>) em.createQuery("select c from Aircraft c", Aircraft.class).getResultList();
 	}
 
