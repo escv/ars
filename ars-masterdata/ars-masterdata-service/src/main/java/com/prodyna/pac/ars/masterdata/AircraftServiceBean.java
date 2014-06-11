@@ -20,7 +20,9 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 
 import com.prodyna.pac.ars.masterdata.model.Aircraft;
+import com.prodyna.pac.ars.service.ejb.PerformanceMonitored;
 
+@PerformanceMonitored
 @Stateless
 @Local(AircraftService.class)
 @Path("/aircraft")
