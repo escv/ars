@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Aircraft implements Serializable {
@@ -14,14 +16,19 @@ public class Aircraft implements Serializable {
 	@Id
 	private long id;
 	
+	@NotNull
+	@Size(min=3)
 	private String name;
 	
+	@NotNull
+	@Size(min=3)
 	private String tailsign;
-	
-	
-	@ManyToOne
+
+	@ManyToOne(optional=false)
+	@NotNull
 	private AircraftType type;
 
+	
 	public long getId() {
 		return id;
 	}

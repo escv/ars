@@ -39,7 +39,13 @@ public class AircraftServiceBean implements AircraftService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public Aircraft addAircraft(Aircraft aircraft) {
+		/*
+		if (aircraft.getType()==null) {
+			throw new IllegalArgumentException("Aircraft must have an aircraft type");
+		}
+		*/
 		em.persist(aircraft);
+		log.info("new aircraft [{}] with ID [{}] created", aircraft.getName(), aircraft.getId());
 		return aircraft;
 	}
 
@@ -56,6 +62,7 @@ public class AircraftServiceBean implements AircraftService {
 	@Override
 	public void updateAircraft(Aircraft aircraft) {
 		em.merge(aircraft);
+		log.info("Aircraft [{}] with ID [{}] was updated", aircraft.getName(), aircraft.getId());
 	}
 
 	@GET
@@ -72,6 +79,7 @@ public class AircraftServiceBean implements AircraftService {
 	public void removeAircraft(@PathParam("id") long id) {
 		Aircraft aircraftToRemove = em.find(Aircraft.class, id);
 		em.remove(aircraftToRemove);
+		log.info("Aircraft [{}] removed", id);
 	}
 
 }

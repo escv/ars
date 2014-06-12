@@ -31,7 +31,35 @@ public class AircraftServiceBeanTest {
     }
 	
 	@Inject
-    AircraftService aircraftService;
+    private AircraftService aircraftService;
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testCreateNull() {
+		this.aircraftService.addAircraft(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testUpdateNull() {
+		this.aircraftService.updateAircraft(null);
+	}
+	
+	@Test(expected=Exception.class)
+	public void testInvalidObject() {
+		Aircraft a = new Aircraft();
+		a.setName("A");
+		a.setTailsign("B");
+		this.aircraftService.addAircraft(a);
+	}
+
+	@Test
+	public void testCreateAircraft() throws Exception {
+		Aircraft a = new Aircraft();
+
+		a.setName("AC1");
+		a.setTailsign("BTSK-AS-df34");
+		Aircraft created = this.aircraftService.addAircraft(a);
+		Assert.assertTrue(created.getId()>0);
+	}
 	
 	@Test
     public void testReadAllAircrafts() {
