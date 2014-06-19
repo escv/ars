@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.prodyna.pac.ars.masterdata.model.Aircraft;
 
@@ -17,6 +18,8 @@ public interface AircraftService {
 	@NotNull List<Aircraft> readAllAircrafts();
 	
 	Aircraft readAircraft(@Min(1) long id);
+	
+	Aircraft readAircraftByName(@Size(min=3) String name);
 	
 	void removeAircraft(@Min(1) long id);
 }

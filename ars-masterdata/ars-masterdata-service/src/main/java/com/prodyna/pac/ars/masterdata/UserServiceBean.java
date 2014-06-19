@@ -76,5 +76,12 @@ public class UserServiceBean implements UserService {
 		em.remove(userToRemove);
 		log.info("User [{}] removed", id);
 	}
+	
+	@GET
+	@Path("name/{userName}")
+	@Override
+	public User readUserByName(@PathParam("userName") String name) {
+		return (User) em.createNamedQuery("User.findByName").setParameter("name", name).getSingleResult();
+	}
 
 }

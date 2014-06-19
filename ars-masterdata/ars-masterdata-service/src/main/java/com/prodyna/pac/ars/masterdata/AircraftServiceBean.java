@@ -7,6 +7,8 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -39,11 +41,10 @@ public class AircraftServiceBean implements AircraftService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public Aircraft addAircraft(Aircraft aircraft) {
-		/*
-		if (aircraft.getType()==null) {
-			throw new IllegalArgumentException("Aircraft must have an aircraft type");
+		if (aircraft.getId()>0) {
+			throw new IllegalArgumentException("Aircraft already has a persistence ID");
 		}
-		*/
+
 		em.persist(aircraft);
 		log.info("new aircraft [{}] with ID [{}] created", aircraft.getName(), aircraft.getId());
 		return aircraft;
@@ -54,7 +55,7 @@ public class AircraftServiceBean implements AircraftService {
 	@Override
 	public List<Aircraft> readAllAircrafts() {
 		this.log.debug("Loading list of all aircrafts");
-		return (List<Aircraft>) em.createQuery("select c from Aircraft c", Aircraft.class).getResultList();
+		return (List<Aircraft>) em.createNamedQuery("Aircraft.findAll", Aircraft.class).getResultList();
 	}
 
 	@PUT
@@ -80,6 +81,13 @@ public class AircraftServiceBean implements AircraftService {
 		Aircraft aircraftToRemove = em.find(Aircraft.class, id);
 		em.remove(aircraftToRemove);
 		log.info("Aircraft [{}] removed", id);
+	}
+
+	@GET
+	@Path("name/{acName}")
+	@Override
+	public Aircraft readAircraftByName(@PathParam("acName") String name) {
+		return (Aircraft) em.createNamedQuery("Aircraft.findByName").setParameter("name", name).getSingleResult();
 	}
 
 }

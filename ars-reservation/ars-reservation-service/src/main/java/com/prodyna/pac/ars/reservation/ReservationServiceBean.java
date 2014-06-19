@@ -7,10 +7,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.prodyna.pac.ars.service.ejb.PerformanceMonitored;
+
 
 @Stateless
 @Local(ReservationService.class)
 @Path("/reservation")
+@PerformanceMonitored
 public class ReservationServiceBean implements ReservationService {
 
 	@GET

@@ -76,5 +76,12 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 		em.remove(aircraftToRemove);
 		log.info("AircraftType [{}] removed", id);
 	}
+	
+	@GET
+	@Path("name/{atName}")
+	@Override
+	public AircraftType readAircraftTypeByName(@PathParam("atName") String name) {
+		return (AircraftType) em.createNamedQuery("AircraftType.findByName").setParameter("name", name).getSingleResult();
+	}
 
 }

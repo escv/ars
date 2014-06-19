@@ -1,0 +1,13 @@
+
+#pnHeader {
+    -fx-background-image: url("../images/CleanGrayBackGround.jpg");              
+    -fx-background-position: left top;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+#lblTitle {
+    -fx-font-size: 32px;
+    -fx-font-family: "Arial Black";
+    -fx-fill: #F1F1F1;
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}

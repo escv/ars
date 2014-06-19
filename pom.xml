@@ -50,5 +50,6 @@
 		<module>ars-masterdata</module>
 		<module>ars-dist</module>
 		<module>ars-service</module>
+		<module>ars-frontend</module>
 	</modules>
 </project>

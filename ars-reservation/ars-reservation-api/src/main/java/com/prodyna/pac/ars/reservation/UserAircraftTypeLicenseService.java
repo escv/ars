@@ -1,8 +1,9 @@
-package com.prodyna.pac.ars.masterdata;
+package com.prodyna.pac.ars.reservation;
 
+import java.util.Date;
 import java.util.List;
 
-import com.prodyna.pac.ars.masterdata.model.UserAircraftTypeLicense;
+import com.prodyna.pac.ars.reservation.model.UserAircraftTypeLicense;
 
 public interface UserAircraftTypeLicenseService {
 
@@ -13,4 +14,6 @@ public interface UserAircraftTypeLicenseService {
 	List<UserAircraftTypeLicense> readAllLicensesForUser(long userID);
 	
 	void removeUserAircraftTypeLicense(long id);
+	
+	boolean checkLicense(long userId, long aircraftType, Date dateBegin, Date dateEnd);
 }
