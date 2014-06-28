@@ -8,7 +8,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jboss.resteasy.plugins.providers.RegisterBuiltin;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
-import com.prodyna.pac.ars.frontend.service.AircraftManagementClient;
+import com.prodyna.pac.ars.masterdata.AircraftService;
 import com.prodyna.pac.ars.masterdata.model.Aircraft;
 
 public class Sample {
@@ -19,7 +19,7 @@ public class Sample {
 		ResteasyClient client = new ResteasyClientBuilder().build();
 		ResteasyWebTarget target = client.target("http://localhost:8080/ars-service-rest/rest");
 
-		AircraftManagementClient myService = target.proxy(AircraftManagementClient.class);
+		AircraftService myService = target.proxy(AircraftService.class);
 		
 		List<Aircraft> readAllAircrafts = myService.readAllAircrafts();
 		System.out.println(readAllAircrafts);

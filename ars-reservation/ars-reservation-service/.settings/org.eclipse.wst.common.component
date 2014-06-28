@@ -2,6 +2,7 @@
     <wb-module deploy-name="ars-reservation-service">
         <wb-resource deploy-path="/" source-path="/src/main/java"/>
         <wb-resource deploy-path="/" source-path="/src/main/resources" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/" source-path="/src/test/resources"/>
         <dependent-module archiveName="ars-reservation-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ars-reservation-api/ars-reservation-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
