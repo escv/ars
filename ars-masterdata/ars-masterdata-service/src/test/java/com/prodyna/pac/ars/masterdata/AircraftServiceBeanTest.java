@@ -3,9 +3,11 @@
  */
 package com.prodyna.pac.ars.masterdata;
 
+import java.security.PrivilegedAction;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.security.auth.Subject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -21,7 +23,7 @@ import com.prodyna.pac.ars.masterdata.model.Aircraft;
 import com.prodyna.pac.ars.masterdata.model.AircraftType;
 
 @RunWith(Arquillian.class)
-public class AircraftServiceBeanTest {
+public class AircraftServiceBeanTest extends SecuredTest {
 
 	@Deployment
     public static JavaArchive createDeployment() {
@@ -29,6 +31,10 @@ public class AircraftServiceBeanTest {
         	.addPackages(true, "com.prodyna.pac.ars.masterdata")
         	.addPackages(true, "com.prodyna.pac.ars.service")
         	.addAsResource("META-INF/persistence.xml")
+        	.addAsResource("META-INF/ejb-jar.xml")
+        	.addAsResource("META-INF/jboss-ejb3.xml")
+        	.addAsResource("roles.properties")
+        	.addAsResource("users.properties")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 	
@@ -64,30 +70,45 @@ public class AircraftServiceBeanTest {
 	@Test
 	@InSequence(1)
 	public void testCreateAircraft() throws Exception {
-		Aircraft a = new Aircraft();
-		a.setName("AC1");
-		a.setTailsign("BTSK-AS-df34");
-		AircraftType type = new AircraftType();
-		type.setName("A380");
-		a.setType(aircraftTypeService.addAircraftType(type));
-		Aircraft created = this.aircraftService.addAircraft(a);
-		Assert.assertTrue(created.getId()>0);
+		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
+
+            @Override
+            public Void run() {
+            	Aircraft a = new Aircraft();
+        		a.setName("AC1");
+        		a.setTailsign("BTSK-AS-df34");
+        		AircraftType type = new AircraftType();
+        		type.setName("A380");
+        		a.setType(aircraftTypeService.addAircraftType(type));
+        		
+            	Aircraft created = aircraftService.addAircraft(a);
+        		Assert.assertTrue(created.getId()>0);
+                return null;
+            }
+        });
 	}
 	
 	@Test
 	@InSequence(2)
 	public void testReadSingle() throws Exception {
-		Aircraft a = new Aircraft();
-		a.setName("AC2");
-		a.setTailsign("ZTSK-AS-YV34");
-		AircraftType type = new AircraftType();
-		type.setName("A340");
-		a.setType(aircraftTypeService.addAircraftType(type));
-		Aircraft created = this.aircraftService.addAircraft(a);
-		
-		Aircraft readAircraft = this.aircraftService.readAircraft(created.getId());
-		
-		Assert.assertEquals(a, readAircraft);
+		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
+
+            @Override
+            public Void run() {
+				Aircraft a = new Aircraft();
+				a.setName("AC2");
+				a.setTailsign("ZTSK-AS-YV34");
+				AircraftType type = new AircraftType();
+				type.setName("A340");
+				a.setType(aircraftTypeService.addAircraftType(type));
+				Aircraft created = aircraftService.addAircraft(a);
+				
+				Aircraft readAircraft = aircraftService.readAircraft(created.getId());
+				
+				Assert.assertEquals(a, readAircraft);
+				return null;
+            }
+        });
 	}
 	
 	@Test
@@ -100,18 +121,27 @@ public class AircraftServiceBeanTest {
 	@Test
 	@InSequence(4)
     public void testReadAllAircrafts() {
-        List<Aircraft> allAircrafts = this.aircraftService.readAllAircrafts();
-        Assert.assertEquals(2, allAircrafts.size());
-        boolean foundAC1 = false, foundAC2=false;
-        for (Aircraft a : allAircrafts) {
-        	if ("AC1".equals(a.getName())) {
-        		foundAC1 = true;
-        	}
-        	if ("AC2".equals(a.getName())) {
-        		foundAC2 = true;
-        	}
-        }
-        Assert.assertTrue(foundAC1 && foundAC2);
+		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
+
+            @Override
+            public Void run() {
+            	List<Aircraft> allAircrafts = aircraftService.readAllAircrafts();
+                Assert.assertEquals(2, allAircrafts.size());
+                boolean foundAC1 = false, foundAC2=false;
+                for (Aircraft a : allAircrafts) {
+                	if ("AC1".equals(a.getName())) {
+                		foundAC1 = true;
+                	}
+                	if ("AC2".equals(a.getName())) {
+                		foundAC2 = true;
+                	}
+                }
+                Assert.assertTrue(foundAC1 && foundAC2);
+                
+            	return null;
+            }
+		});
+        
     }
 	
 	@Test

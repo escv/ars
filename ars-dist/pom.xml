@@ -10,7 +10,7 @@
 	<packaging>ear</packaging>
 	<description>Java EE Ear Deployable maven module</description>
 	<properties>
-        <jboss.directory>D:\\Programme\\wildfly-8.0.0.Final</jboss.directory>
+        <jboss.directory>C:\\Users\\aalbert\\Programme\\wildfly-8.0.0.Final</jboss.directory>
     </properties>
 
 	<dependencies>
@@ -68,7 +68,7 @@
 				<artifactId>wildfly-maven-plugin</artifactId>
 				<version>1.0.0.Final</version>
 				<configuration>
-					<jbossHome>D:/Programme/wildfly-8.0.0.Final</jbossHome>
+					<jbossHome>C:\\Users\\aalbert\\Programme\\wildfly-8.0.0.Final</jbossHome>
 				</configuration>
 				<executions>
 					<execution>

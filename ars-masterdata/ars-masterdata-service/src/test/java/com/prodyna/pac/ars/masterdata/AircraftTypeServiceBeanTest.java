@@ -28,7 +28,7 @@ public class AircraftTypeServiceBeanTest {
         	.addPackages(true, "com.prodyna.pac.ars.masterdata")
         	.addPackages(true, "com.prodyna.pac.ars.service")
         	.addAsResource("META-INF/persistence.xml")
-            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        	.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 	
 	@Inject

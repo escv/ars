@@ -82,4 +82,8 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<modules>
+		<module>ars-service-ejb</module>
+		<module>ars-service-rest</module>
+	</modules>
 </project>

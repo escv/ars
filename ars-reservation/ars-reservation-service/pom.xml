@@ -5,7 +5,7 @@
 		<artifactId>ars-service</artifactId>
 		<groupId>com.prodyna.pac.ars</groupId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../..</relativePath>
+		<relativePath>../../ars-service/pom.xml</relativePath>
 	</parent>
 	<artifactId>ars-reservation-service</artifactId>
 	<packaging>ejb</packaging>

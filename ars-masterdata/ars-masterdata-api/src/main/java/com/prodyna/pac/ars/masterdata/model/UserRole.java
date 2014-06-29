@@ -2,6 +2,7 @@ package com.prodyna.pac.ars.masterdata.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ public class UserRole implements Serializable {
 	@GeneratedValue
 	private long id;
 	
+	@Column(unique=true)
 	private String name;
 
 	public long getId() {

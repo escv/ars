@@ -11,8 +11,6 @@ import javax.persistence.PersistenceContext;
 import org.slf4j.Logger;
 
 import com.prodyna.pac.ars.reservation.model.Reservation;
-import com.prodyna.pac.ars.reservation.validation.ValidReservation;
-import com.prodyna.pac.ars.service.ejb.ModificationType;
 import com.prodyna.pac.ars.service.ejb.PerformanceMonitored;
 
 
@@ -29,13 +27,13 @@ public class ReservationServiceBean implements ReservationService {
 	
 	
 	@Override
-	public Reservation createReservation(@ValidReservation(ModificationType.CREATE) Reservation reservation) {
+	public Reservation createReservation(Reservation reservation) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void updateReservation(@ValidReservation(ModificationType.UPDATE) Reservation reservation) {
+	public void updateReservation(Reservation reservation) {
 		// TODO Auto-generated method stub
 		
 	}

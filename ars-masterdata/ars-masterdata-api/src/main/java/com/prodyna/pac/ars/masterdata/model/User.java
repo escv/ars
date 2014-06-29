@@ -1,18 +1,23 @@
 package com.prodyna.pac.ars.masterdata.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "_User")
 @NamedQueries({
 	@NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
 	@NamedQuery(name="User.findByName", query="SELECT u FROM User u WHERE u.name=:name")
@@ -35,9 +40,12 @@ public class User implements Serializable {
 	private String email;
 	
 	@NotNull
-	@Size(min=32, max=32)
+	@Size(min=30, max=100)
 	private String passwordDigest;
 	
+	// because unidirectional and only a few rows expected
+	@ManyToMany
+    private Set<UserRole> roles = new HashSet<UserRole>();
 	
 	public long getId() {
 		return id;
@@ -69,6 +77,15 @@ public class User implements Serializable {
 
 	public void setPasswordDigest(String password) {
 		this.passwordDigest = password;
+	}
+
+	
+	public Set<UserRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<UserRole> roles) {
+		this.roles = roles;
 	}
 
 	@Override
