@@ -3,21 +3,26 @@ package com.prodyna.pac.ars.reservation;
 import java.util.Date;
 import java.util.List;
 
-import javax.ejb.Local;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.PathParam;
 
 import org.slf4j.Logger;
 
 import com.prodyna.pac.ars.reservation.model.UserAircraftTypeLicense;
 import com.prodyna.pac.ars.service.ejb.PerformanceMonitored;
+import com.prodyna.pac.ars.service.ejb.Roles;
 
 @PerformanceMonitored
 @Stateless
-@Local(UserAircraftTypeLicenseService.class)
+@DeclareRoles({ Roles.ADMIN, Roles.PILOT })
 public class UserAircraftTypeLicenseServiceBean implements
 		UserAircraftTypeLicenseService {
 
@@ -28,7 +33,8 @@ public class UserAircraftTypeLicenseServiceBean implements
 	private EntityManager em;
 	
 	@Override
-	public UserAircraftTypeLicense addLicense(UserAircraftTypeLicense license) {
+	@RolesAllowed(Roles.ADMIN)
+	public UserAircraftTypeLicense addLicense(@NotNull @Valid UserAircraftTypeLicense license) {
 		if (license.getId()>0) {
 			throw new IllegalArgumentException("License already has a persistence ID");
 		}
@@ -40,7 +46,8 @@ public class UserAircraftTypeLicenseServiceBean implements
 	}
 
 	@Override
-	public void updateUserAircraftTypeLicense(UserAircraftTypeLicense license) {
+	@RolesAllowed(Roles.ADMIN)
+	public void updateUserAircraftTypeLicense(@NotNull @Valid UserAircraftTypeLicense license) {
 		em.merge(license);
 		log.info("License with ID [{}] was updated", license.getId());
 	}
@@ -49,13 +56,15 @@ public class UserAircraftTypeLicenseServiceBean implements
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<UserAircraftTypeLicense> readAllLicensesForUser(@PathParam("userId") long userId) {
+	@RolesAllowed(Roles.PILOT)
+	public @NotNull List<UserAircraftTypeLicense> readAllLicensesForUser(@Min(1) long userId) {
 		return (List<UserAircraftTypeLicense>) em.createNamedQuery("License.findByUserId").setParameter("userId", userId).getResultList();
 	}
 
 	
 	@Override
-	public void removeUserAircraftTypeLicense(@PathParam("id") long id) {
+	@RolesAllowed(Roles.ADMIN)
+	public void removeUserAircraftTypeLicense(@PathParam("id") @Min(1) long id) {
 		UserAircraftTypeLicense licenseToRemove = em.find(UserAircraftTypeLicense.class, id);
 		em.remove(licenseToRemove);
 		log.info("UserAircraftTypeLicense [{}] removed", id);

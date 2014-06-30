@@ -27,6 +27,7 @@ public class SecurityInitializer {
 		em.persist(pilotRole);
 		
 		User admin = new User();
+		admin.setName("admin");
 		admin.setEmail("admin@locahost.com");
 		admin.setPasswordDigest("e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4"); // secret in sha1
 		admin.getRoles().add(adminRole);

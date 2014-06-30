@@ -1,11 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" xmlns:fx="http://javafx.com/fxml/1">
-    <Label text="Aircaft Management"/> 
-</AnchorPane>
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" id="ACTAnchorPane" fx:controller="com.prodyna.pac.ars.frontend.fxml.AircraftController" >
+    <Label text="Aircaft Management"/>
+    <Button onAction="#showCreateForm" text="New Aircraft"/> 
+    <TableView fx:id="entryTable">
+        <columns>
+              <TableColumn text="Name" prefWidth="75">
+                  <cellValueFactory>
+                      <PropertyValueFactory property="name" />
+                  </cellValueFactory>
+              </TableColumn>
+              <TableColumn text="Tailsign" prefWidth="100">
+                  <cellValueFactory>
+                      <PropertyValueFactory property="name" />
+                  </cellValueFactory>
+              </TableColumn>
+              <TableColumn text="Tailsign" prefWidth="100">
+                  <cellValueFactory>
+                      <PropertyValueFactory property="tailsign" />
+                  </cellValueFactory>
+              </TableColumn>
+              <TableColumn fx:id="typeColumn" text="Type" prefWidth="100" />
+          </columns>
+    </TableView>
+    
+</VBox>

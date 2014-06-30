@@ -1,7 +1,6 @@
-package com.prodyna.pac.ars.masterdata;
+package com.prodyna.pac.ars.service.ejb;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,11 +23,7 @@ public class SecuredTest {
 	
 	@Before
 	public void login() throws Exception {
-        CallbackHandler cbh = new SecuredTest.NamePasswordCallbackHandler("john", "secret");
-        //Configuration config = new JBossJaasConfiguration(configurationName);
-        //new LoginContext("demo", new Subject(), cbh, new JBossJaasConfiguration("demo"));
-        loginContext =  new LoginContext("demo", new Subject(), cbh, new JBossJaasConfiguration("demo"));
-		//loginContext = JBossLoginContextFactory.createLoginContext("john", "secret");   
+        loginContext = new LoginContext("demo", new Subject(), new SecuredTest.NamePasswordCallbackHandler("john", "secret"), new JBossJaasConfiguration("demo"));
 	    loginContext.login();
 	}
 	

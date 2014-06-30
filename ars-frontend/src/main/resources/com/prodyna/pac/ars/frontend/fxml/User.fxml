@@ -7,14 +7,19 @@
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.text.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" id="ACTAnchorPane" fx:controller="com.prodyna.pac.ars.frontend.fxml.AircraftTypeController" >
-    <Label text="Aircaft Type Management"/>
-    <Button onAction="#showCreateForm" text="New Aircraft Type"/> 
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.prodyna.pac.ars.frontend.fxml.UserController" >
+    <Label text="User Management"/>
+    <Button onAction="#showCreateForm" text="New User"/> 
     <TableView fx:id="entryTable">
         <columns>
               <TableColumn text="Name" prefWidth="100">
                   <cellValueFactory>
                       <PropertyValueFactory property="name" />
+                  </cellValueFactory>
+              </TableColumn>
+              <TableColumn text="Name" prefWidth="100">
+                  <cellValueFactory>
+                      <PropertyValueFactory property="email" />
                   </cellValueFactory>
               </TableColumn>
           </columns>

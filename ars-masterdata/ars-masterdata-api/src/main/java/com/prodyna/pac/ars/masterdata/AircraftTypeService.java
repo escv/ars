@@ -12,6 +12,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -26,20 +27,20 @@ public interface AircraftTypeService {
 	AircraftType addAircraftType(@NotNull @Valid AircraftType aircraftType);
 	
 	@PUT
-	void updateAircraftType(@NotNull @Valid  AircraftType aircraft);
+	void updateAircraftType(@NotNull @Valid AircraftType aircraft);
 	
 	@GET
-	List<AircraftType> readAllAircraftTypes();
+	@NotNull List<AircraftType> readAllAircraftTypes();
 	
 	@GET
 	@Path("{id}")
-	AircraftType readAircraftType(@Min(1) long id);
+	AircraftType readAircraftType(@PathParam("id") @Min(1) long id);
 	
 	@DELETE
 	@Path("{id}")
-	void removeAircraftType(@Min(1) long id);
+	void removeAircraftType(@PathParam("id") @Min(1) long id);
 	
 	@GET
 	@Path("name/{atName}")
-	AircraftType readAircraftTypeByName(@Size(min=3) String name);
+	AircraftType readAircraftTypeByName(@PathParam("atName") @Size(min=3) String name);
 }

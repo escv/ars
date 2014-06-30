@@ -2,6 +2,7 @@ package com.prodyna.pac.ars.masterdata;
 
 import java.util.List;
 
+import javax.ejb.Local;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -20,6 +22,7 @@ import com.prodyna.pac.ars.masterdata.model.Aircraft;
 @Path("/aircraft")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@Local
 public interface AircraftService {
 
 	@POST
@@ -33,7 +36,7 @@ public interface AircraftService {
 	
 	@GET
 	@Path("{id}")
-	Aircraft readAircraft(@Min(1) long id);
+	Aircraft readAircraft(@PathParam("id") @Min(1) long id);
 	
 	@GET
 	@Path("name/{acName}")
@@ -41,5 +44,5 @@ public interface AircraftService {
 	
 	@DELETE
 	@Path("{id}")
-	void removeAircraft(@Min(1) long id);
+	void removeAircraft(@PathParam("id") @Min(1) long id);
 }
