@@ -16,6 +16,8 @@ import com.prodyna.pac.ars.masterdata.model.User;
 
 @Entity
 @NamedQueries({
+	@NamedQuery(name="License.findAll", 
+			query="SELECT l FROM UserAircraftTypeLicense l"),
 	@NamedQuery(name="License.findByUserId", 
 			query="SELECT l FROM UserAircraftTypeLicense l WHERE l.user.id=:userId"),
 	@NamedQuery(name="License.findByAircraftType", 

@@ -35,17 +35,14 @@ public class AircraftController extends AbstractCRUDController<Aircraft> {
         acService = ServiceProxyFactory.createServiceProxy(AircraftService.class);
         entries.addAll(acService.readAllAircrafts());
         
-        typeColumn.setCellValueFactory(new Callback<CellDataFeatures<Aircraft, String>, ObservableValue<String>>() {  
-            @Override  
-            public ObservableValue<String> call(CellDataFeatures<Aircraft, String> data) {
-                final AircraftType at = data.getValue().getType();
-                return new ObservableValueBase<String>(){
-                    @Override
-                    public String getValue() {
-                        return at==null?"":at.getName();
-                    }
-                };
-            }  
+        typeColumn.setCellValueFactory((CellDataFeatures<Aircraft, String> data) -> {
+            final AircraftType at = data.getValue().getType();
+            return new ObservableValueBase<String>(){
+                @Override
+                public String getValue() {
+                    return at==null?"":at.getName();
+                }
+            };  
         });  
         entryTable.setItems(entries);
 

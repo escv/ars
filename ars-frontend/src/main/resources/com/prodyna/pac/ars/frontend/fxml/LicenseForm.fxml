@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane 
+    xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" fx:controller="com.prodyna.pac.ars.frontend.fxml.LicenseFormController">
+        <padding>
+            <Insets top="25" right="25" bottom="10" left="25"/>
+        </padding>
+    
+        <Text text="Create New" 
+            GridPane.columnIndex="0" GridPane.rowIndex="0"
+            GridPane.columnSpan="2"/>
+
+        <Label text="Pilot:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <ChoiceBox fx:id="userChoice"  GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Label text="AircraftType:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <ChoiceBox fx:id="aircraftTypeChoice"  GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        
+        <Label text="Valid From:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <DatePicker fx:id="validFromPicker" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+        <Label text="Valid Until:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <DatePicker fx:id="validUntilPicker" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        
+        <Button fx:id="deleteButton" GridPane.columnIndex="0" GridPane.rowIndex="5" text="DELETE" onAction="#removeUserAircraftTypeLicense"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="5" text="OK" onAction="#submitUserAircraftTypeLicense"/>
+        
+</GridPane>

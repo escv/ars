@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
-import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -16,13 +15,13 @@ import javax.validation.constraints.Size;
 
 import org.slf4j.Logger;
 
+import com.prodyna.pac.ars.masterdata.model.Aircraft;
 import com.prodyna.pac.ars.masterdata.model.User;
 import com.prodyna.pac.ars.service.ejb.PerformanceMonitored;
 import com.prodyna.pac.ars.service.ejb.Roles;
 
 @PerformanceMonitored
 @Stateless
-@Local(UserService.class)
 @DeclareRoles({ Roles.ADMIN, Roles.PILOT })
 public class UserServiceBean implements UserService {
 
@@ -46,7 +45,7 @@ public class UserServiceBean implements UserService {
 	@RolesAllowed(Roles.PILOT)
 	public @NotNull List<User> readAllUsers() {
 		this.log.debug("Loading list of all Users");
-		return (List<User>) em.createQuery("select c from User c", User.class).getResultList();
+		return (List<User>) em.createNamedQuery("User.findAll", User.class).getResultList();
 	}
 	
 	@Override

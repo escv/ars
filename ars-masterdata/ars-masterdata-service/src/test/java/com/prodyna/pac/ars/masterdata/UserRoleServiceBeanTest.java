@@ -19,30 +19,34 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.prodyna.pac.ars.masterdata.model.User;
+import com.prodyna.pac.ars.masterdata.model.UserRole;
 import com.prodyna.pac.ars.service.ejb.SecuredTest;
 
 @RunWith(Arquillian.class)
-public class UserServiceBeanTest extends SecuredTest {
+public class UserRoleServiceBeanTest extends SecuredTest {
 
 	@Deployment
 	public static JavaArchive createDeployment() {
-		return ShrinkWrap.create(JavaArchive.class).addPackages(true, "com.prodyna.pac.ars.masterdata")
-				.addPackages(true, "com.prodyna.pac.ars.service").addAsResource("META-INF/persistence.xml")
-				.addAsResource("META-INF/ejb-jar.xml").addAsResource("META-INF/jboss-ejb3.xml")
-				.addAsResource("roles.properties").addAsResource("users.properties")
+		return ShrinkWrap.create(JavaArchive.class)
+				.addPackages(true, "com.prodyna.pac.ars.masterdata")
+				.addPackages(true, "com.prodyna.pac.ars.service")
+				.addAsResource("META-INF/persistence.xml")
+				.addAsResource("META-INF/ejb-jar.xml")
+				.addAsResource("META-INF/jboss-ejb3.xml")
+				.addAsResource("roles.properties")
+				.addAsResource("users.properties")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@Inject
-	private UserService userService;
+	private UserRoleService userRoleService;
 
 	@Test(expected = Exception.class)
 	public void testCreateNull() {
 		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
 			@Override
 			public Void run() {
-				userService.addUser(null);
+				userRoleService.addUserRole(null);
 				return null;
 			}
 		});
@@ -53,7 +57,7 @@ public class UserServiceBeanTest extends SecuredTest {
 		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
 			@Override
 			public Void run() {
-				userService.updateUser(null);
+				userRoleService.updateUserRole(null);
 				return null;
 			}
 		});
@@ -64,26 +68,9 @@ public class UserServiceBeanTest extends SecuredTest {
 		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
 			@Override
 			public Void run() {
-
-				User u = new User();
+				UserRole u = new UserRole();
 				u.setName("A");
-				userService.addUser(u);
-				return null;
-			}
-		});
-	}
-
-	@Test(expected = Exception.class)
-	public void testInvalidEMail() {
-		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
-			@Override
-			public Void run() {
-
-				User u = new User();
-				u.setName("Andre");
-				u.setPasswordDigest("1234567890qwertzuiop0987654321ZZ");
-				u.setEmail("andre@albert");
-				userService.addUser(u);
+				userRoleService.addUserRole(u);
 				return null;
 			}
 		});
@@ -94,8 +81,8 @@ public class UserServiceBeanTest extends SecuredTest {
 		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
 			@Override
 			public Void run() {
-
-				Assert.assertNull(userService.readUserByName("YET A TEST"));
+				Assert.assertNull(userRoleService
+						.readUserRoleByName("YET A TEST"));
 				return null;
 			}
 		});
@@ -103,16 +90,15 @@ public class UserServiceBeanTest extends SecuredTest {
 
 	@Test
 	@InSequence(1)
-	public void testCreateUser() throws Exception {
+	public void testCreateUserRole() throws Exception {
 		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
 			@Override
 			public Void run() {
 
-				User user = new User();
-				user.setName("Jo");
-				user.setPasswordDigest("1234567890qwertzuiop0987654321ZZ");
-				user.setEmail("valid@email.com");
-				User created = userService.addUser(user);
+				UserRole UserRole = new UserRole();
+				UserRole.setName("ACT1");
+				UserRole created = userRoleService
+						.addUserRole(UserRole);
 				Assert.assertTrue(created.getId() > 0);
 				return null;
 			}
@@ -125,16 +111,15 @@ public class UserServiceBeanTest extends SecuredTest {
 		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
 			@Override
 			public Void run() {
+				UserRole userRole = new UserRole();
+				userRole.setName("ACT2");
+				UserRole created = userRoleService
+						.addUserRole(userRole);
 
-				User user = new User();
-				user.setName("Max");
-				user.setEmail("valid@email.com");
-				user.setPasswordDigest("1234567890qwertzuiop0987654321ZZ");
-				User created = userService.addUser(user);
+				UserRole readUserRole = userRoleService
+						.readUserRole(created.getId());
 
-				User readUser = userService.readUser(created.getId());
-
-				Assert.assertEquals(user, readUser);
+				Assert.assertEquals(userRole, readUserRole);
 				return null;
 			}
 		});
@@ -146,8 +131,9 @@ public class UserServiceBeanTest extends SecuredTest {
 		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
 			@Override
 			public Void run() {
-				User user = userService.readUserByName("Jo");
-				Assert.assertEquals("valid@email.com", user.getEmail());
+				UserRole UserRole = userRoleService
+						.readUserRoleByName("ACT1");
+				Assert.assertEquals("ACT1", UserRole.getName());
 				return null;
 			}
 		});
@@ -155,26 +141,23 @@ public class UserServiceBeanTest extends SecuredTest {
 
 	@Test
 	@InSequence(4)
-	public void testReadAllUser() {
+	public void testReadAllUserRole() {
 		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
 			@Override
 			public Void run() {
-				List<User> allUsers = userService.readAllUsers();
-				Assert.assertEquals(2 + 1, allUsers.size()); // one user gets
-																// created on
-																// initializer
-																// /thats
-																// why +1/
-				boolean foundJo = false, foundMax = false;
-				for (User u : allUsers) {
-					if ("Jo".equals(u.getName())) {
-						foundJo = true;
+				List<UserRole> allUserRoles = userRoleService
+						.readAllUserRoles();
+				Assert.assertEquals(2+2, allUserRoles.size()); // 2 roles are allways created by initializer
+				boolean foundACT1 = false, foundACT2 = false;
+				for (UserRole u : allUserRoles) {
+					if ("ACT1".equals(u.getName())) {
+						foundACT1 = true;
 					}
-					if ("Max".equals(u.getName())) {
-						foundMax = true;
+					if ("ACT2".equals(u.getName())) {
+						foundACT2 = true;
 					}
 				}
-				Assert.assertTrue(foundJo && foundMax);
+				Assert.assertTrue(foundACT1 && foundACT2);
 				return null;
 			}
 		});
@@ -186,11 +169,9 @@ public class UserServiceBeanTest extends SecuredTest {
 		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
 			@Override
 			public Void run() {
-				User user = new User();
-				user.setName("Max");
-				user.setEmail("valid@email.com");
-				user.setPasswordDigest("1234567890qwertzuiop0987654321ZZ");
-				userService.addUser(user);
+				UserRole userRole = new UserRole();
+				userRole.setName("ACT2");
+				userRoleService.addUserRole(userRole);
 				return null;
 			}
 		});
@@ -202,9 +183,11 @@ public class UserServiceBeanTest extends SecuredTest {
 		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
 			@Override
 			public Void run() {
-				User jo = userService.readUserByName("Jo");
-				userService.removeUser(jo.getId());
-				Assert.assertNull(userService.readUser(jo.getId()));
+				UserRole act = userRoleService
+						.readUserRoleByName("ACT1");
+				userRoleService.removeUserRole(act.getId());
+				Assert.assertNull(userRoleService.readUserRole(act
+						.getId()));
 				return null;
 			}
 		});

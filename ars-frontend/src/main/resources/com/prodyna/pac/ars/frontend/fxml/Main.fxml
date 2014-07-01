@@ -19,6 +19,11 @@
                 <fx:include fx:id="user" source="User.fxml"/>
             </content>
         </Tab>
+        <Tab text="License" closable="false">
+            <content>
+                <fx:include fx:id="license" source="License.fxml"/>
+            </content>
+        </Tab>
     </tabs>
 </TabPane>
         

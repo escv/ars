@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
-import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -17,12 +16,12 @@ import javax.validation.constraints.Size;
 import org.slf4j.Logger;
 
 import com.prodyna.pac.ars.masterdata.model.AircraftType;
+import com.prodyna.pac.ars.masterdata.model.User;
 import com.prodyna.pac.ars.service.ejb.PerformanceMonitored;
 import com.prodyna.pac.ars.service.ejb.Roles;
 
 @PerformanceMonitored
 @Stateless
-@Local(AircraftTypeService.class)
 @DeclareRoles({ Roles.ADMIN, Roles.PILOT })
 public class AircraftTypeServiceBean implements AircraftTypeService {
 
@@ -46,7 +45,7 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 	@RolesAllowed(Roles.PILOT)
 	public @NotNull List<AircraftType> readAllAircraftTypes() {
 		this.log.debug("Loading list of all aircrafttypes");
-		return (List<AircraftType>) em.createQuery("select c from AircraftType c", AircraftType.class).getResultList();
+		return (List<AircraftType>) em.createNamedQuery("AircraftType.findAll", AircraftType.class).getResultList();
 	}
 
 	

@@ -2,6 +2,7 @@ package com.prodyna.pac.ars.masterdata;
 
 import java.util.List;
 
+import javax.ejb.Local;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -18,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.prodyna.pac.ars.masterdata.model.AircraftType;
 
+@Local
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/aircraft-type")

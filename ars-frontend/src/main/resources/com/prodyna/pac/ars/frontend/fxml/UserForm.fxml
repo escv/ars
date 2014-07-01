@@ -6,9 +6,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.text.*?>
+<?import org.controlsfx.control.*?>
 
 <GridPane 
-    xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" fx:controller="com.prodyna.pac.ars.frontend.fxml.AircraftTypeFormController">
+    xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" fx:controller="com.prodyna.pac.ars.frontend.fxml.UserFormController">
         <padding>
             <Insets top="25" right="25" bottom="10" left="25"/>
         </padding>
@@ -17,13 +18,22 @@
             GridPane.columnIndex="0" GridPane.rowIndex="0"
             GridPane.columnSpan="2"/>
 
-        <Label text="AircraftType Name:"
-            GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-
-        <TextField fx:id="nameField"
-            GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         
-        <Button fx:id="deleteButton" GridPane.columnIndex="0" GridPane.rowIndex="2" text="DELETE" onAction="#removeAircraftType"/>
-        <Button GridPane.columnIndex="1" GridPane.rowIndex="2" text="OK" onAction="#submitAircraftType"/>
+        <Label text="eMail:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="mailField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        
+        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        
+        <Label text="Roles:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <SelectableCheckListView fx:id="rolesChoice" GridPane.columnIndex="1" GridPane.rowIndex="4" prefHeight="100" />
+
+        <Label text="License:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+        <SelectableCheckListView fx:id="licenseChoice" GridPane.columnIndex="1" GridPane.rowIndex="5" prefHeight="100" />
+        
+        <Button fx:id="deleteButton" GridPane.columnIndex="0" GridPane.rowIndex="6" text="DELETE" onAction="#removeUser"/>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="6" text="OK" onAction="#submitUser"/>
         
 </GridPane>

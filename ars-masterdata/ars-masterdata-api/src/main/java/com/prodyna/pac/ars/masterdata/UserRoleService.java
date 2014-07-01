@@ -17,32 +17,32 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.prodyna.pac.ars.masterdata.model.User;
+import com.prodyna.pac.ars.masterdata.model.UserRole;
 
 @Local
-@Path("/user")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public interface UserService {
+@Path("/roles")
+public interface UserRoleService {
 
 	@POST
-	User addUser(@NotNull @Valid User user);
+	UserRole addUserRole(@NotNull @Valid UserRole role);
 	
 	@PUT
-	void updateUser(@NotNull @Valid User user);
+	void updateUserRole(@NotNull @Valid UserRole role);
 	
 	@GET
-	@NotNull List<User> readAllUsers();
+	@NotNull List<UserRole> readAllUserRoles();
 	
 	@GET
 	@Path("{id}")
-	User readUser(@PathParam("id") @Min(1) long id);
+	UserRole readUserRole(@PathParam("id") @Min(1) long id);
 	
 	@DELETE
 	@Path("{id}")
-	void removeUser(@PathParam("id") @Min(1) long id);
+	void removeUserRole(@PathParam("id") @Min(1) long id);
 	
 	@GET
-	@Path("name/{userName}")
-	User readUserByName(@PathParam("userName") @Size(min=2) String name);
+	@Path("name/{roleName}")
+	UserRole readUserRoleByName(@PathParam("roleName") @Size(min=3) String name);
 }

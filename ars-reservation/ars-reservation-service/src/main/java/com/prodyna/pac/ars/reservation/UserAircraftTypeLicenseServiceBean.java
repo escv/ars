@@ -1,6 +1,5 @@
 package com.prodyna.pac.ars.reservation;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.security.DeclareRoles;
@@ -34,7 +33,7 @@ public class UserAircraftTypeLicenseServiceBean implements
 	
 	@Override
 	@RolesAllowed(Roles.ADMIN)
-	public UserAircraftTypeLicense addLicense(@NotNull @Valid UserAircraftTypeLicense license) {
+	public UserAircraftTypeLicense addUserAircraftTypeLicense(@NotNull @Valid UserAircraftTypeLicense license) {
 		if (license.getId()>0) {
 			throw new IllegalArgumentException("License already has a persistence ID");
 		}
@@ -69,12 +68,18 @@ public class UserAircraftTypeLicenseServiceBean implements
 		em.remove(licenseToRemove);
 		log.info("UserAircraftTypeLicense [{}] removed", id);
 	}
-
+/*
 	@Override
 	public boolean checkLicense(long userId, long aircraftType, Date dateBegin,
 			Date dateEnd) {
-		// TODO Auto-generated method stub
 		return false;
+	}
+*/
+	@Override
+	@RolesAllowed(Roles.ADMIN)
+	public List<UserAircraftTypeLicense> readAllLicenses() {
+		this.log.debug("Loading list of all Licenses");
+		return (List<UserAircraftTypeLicense>) em.createNamedQuery("License.findAll", UserAircraftTypeLicense.class).getResultList();
 	}
 
 }

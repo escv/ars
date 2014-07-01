@@ -70,5 +70,8 @@ public class AircraftType implements Serializable {
 		return true;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "AircraftType "+name;
+	}
 }

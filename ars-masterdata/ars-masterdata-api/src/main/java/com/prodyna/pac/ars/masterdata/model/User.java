@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -44,7 +45,7 @@ public class User implements Serializable {
 	private String passwordDigest;
 	
 	// because unidirectional and only a few rows expected
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
     private Set<UserRole> roles = new HashSet<UserRole>();
 	
 	public long getId() {
@@ -119,6 +120,9 @@ public class User implements Serializable {
 		return true;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "User "+name+" <"+email+">";
+	}
 
 }

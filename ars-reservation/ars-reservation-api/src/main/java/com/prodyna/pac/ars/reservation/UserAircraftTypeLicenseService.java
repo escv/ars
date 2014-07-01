@@ -26,10 +26,13 @@ import com.prodyna.pac.ars.reservation.model.UserAircraftTypeLicense;
 public interface UserAircraftTypeLicenseService {
 
 	@POST
-	UserAircraftTypeLicense addLicense(@NotNull @Valid UserAircraftTypeLicense license);
+	UserAircraftTypeLicense addUserAircraftTypeLicense(@NotNull @Valid UserAircraftTypeLicense license);
 	
 	@PUT
 	void updateUserAircraftTypeLicense(@NotNull @Valid UserAircraftTypeLicense license);
+	
+	@GET
+	@NotNull List<UserAircraftTypeLicense> readAllLicenses();
 	
 	@GET
 	@Path("user/{userId}")
@@ -39,5 +42,5 @@ public interface UserAircraftTypeLicenseService {
 	@Path("{id}")
 	void removeUserAircraftTypeLicense(@PathParam("id") @Min(1) long id);
 	
-	boolean checkLicense(long userId, long aircraftType, Date dateBegin, Date dateEnd);
+	//boolean checkLicense(long userId, long aircraftType, Date dateBegin, Date dateEnd);
 }

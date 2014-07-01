@@ -36,7 +36,7 @@ public abstract class AbstractCRUDController <T> implements Initializable {
     public void addEntry(T at) {
         this.entries.add(at);
     }
-    
+
     public void removeEntry(T at) {
         this.entries.remove(at);
     }
@@ -79,7 +79,7 @@ public abstract class AbstractCRUDController <T> implements Initializable {
             dialogStage.showAndWait();
   
         }catch(Exception e) {
-            
+            System.err.println(e.getMessage());
         }
     }
 

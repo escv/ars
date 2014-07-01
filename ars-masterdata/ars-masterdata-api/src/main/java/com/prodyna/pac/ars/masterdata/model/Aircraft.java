@@ -104,6 +104,10 @@ public class Aircraft implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Aircraft "+name+", Tailsign "+tailsign;
+	}
 	
 	
 }
