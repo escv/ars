@@ -16,13 +16,12 @@ import javax.validation.constraints.Size;
 import org.slf4j.Logger;
 
 import com.prodyna.pac.ars.masterdata.model.AircraftType;
-import com.prodyna.pac.ars.masterdata.model.User;
 import com.prodyna.pac.ars.service.ejb.PerformanceMonitored;
 import com.prodyna.pac.ars.service.ejb.Roles;
 
 @PerformanceMonitored
 @Stateless
-@DeclareRoles({ Roles.ADMIN, Roles.PILOT })
+@DeclareRoles({ Roles.ADMIN, Roles.PILOT, Roles.GUEST })
 public class AircraftTypeServiceBean implements AircraftTypeService {
 
 	@Inject
@@ -42,7 +41,7 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 
 	
 	@Override
-	@RolesAllowed(Roles.PILOT)
+	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public @NotNull List<AircraftType> readAllAircraftTypes() {
 		this.log.debug("Loading list of all aircrafttypes");
 		return (List<AircraftType>) em.createNamedQuery("AircraftType.findAll", AircraftType.class).getResultList();
@@ -58,7 +57,7 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 
 	
 	@Override
-	@RolesAllowed(Roles.PILOT)
+	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public AircraftType readAircraftType(@Min(1) long id) {
 		return em.find(AircraftType.class, id);
 	}
@@ -74,7 +73,7 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 	
 	
 	@Override
-	@RolesAllowed(Roles.PILOT)
+	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public AircraftType readAircraftTypeByName(@Size(min=3) String name) {
 		return (AircraftType) em.createNamedQuery("AircraftType.findByName").setParameter("name", name).getSingleResult();
 	}

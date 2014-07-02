@@ -23,7 +23,9 @@ import com.prodyna.pac.ars.masterdata.model.User;
 	@NamedQuery(name="Reservation.findByUserName", 
 			query="SELECT r FROM Reservation r WHERE r.user.name=:userName"),
 	@NamedQuery(name="Reservation.findByAircraftAndDateRange", 
-			query="SELECT r FROM Reservation r WHERE r.aircraft.id=:aircraftId AND r.begin<:beginDate AND r.end>:endDate")
+			query="SELECT r FROM Reservation r WHERE r.aircraft.id=:aircraftId AND r.begin<:beginDate AND r.end>:endDate"),
+	@NamedQuery(name="Aircraft.findAircraftWithoutCurrentReservation", 
+			query="SELECT a FROM Aircraft a WHERE NOT EXISTS (SELECT r FROM Reservation r WHERE r.aircraft=a) ")
 })
 public class Reservation implements Serializable {
 

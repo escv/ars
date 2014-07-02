@@ -21,7 +21,7 @@ import com.prodyna.pac.ars.service.ejb.Roles;
 
 @PerformanceMonitored
 @Stateless
-@DeclareRoles({ Roles.ADMIN, Roles.PILOT })
+@DeclareRoles({ Roles.ADMIN, Roles.PILOT, Roles.GUEST })
 public class UserRoleServiceBean implements UserRoleService {
 
 	@Inject
@@ -41,7 +41,7 @@ public class UserRoleServiceBean implements UserRoleService {
 
 	
 	@Override
-	@RolesAllowed(Roles.PILOT)
+	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public @NotNull List<UserRole> readAllUserRoles() {
 		this.log.debug("Loading list of all UserRoles");
 		return (List<UserRole>) em.createNamedQuery("UserRole.findAll", UserRole.class).getResultList();
@@ -57,7 +57,7 @@ public class UserRoleServiceBean implements UserRoleService {
 
 	
 	@Override
-	@RolesAllowed(Roles.PILOT)
+	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public UserRole readUserRole(@Min(1) long id) {
 		return em.find(UserRole.class, id);
 	}
@@ -73,7 +73,7 @@ public class UserRoleServiceBean implements UserRoleService {
 	
 	
 	@Override
-	@RolesAllowed(Roles.PILOT)
+	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public UserRole readUserRoleByName(@Size(min=3) String name) {
 		return (UserRole) em.createNamedQuery("UserRole.findByName").setParameter("name", name).getSingleResult();
 	}

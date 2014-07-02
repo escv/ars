@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 
 import org.slf4j.Logger;
 
+import com.prodyna.pac.ars.masterdata.model.Aircraft;
 import com.prodyna.pac.ars.reservation.model.Reservation;
 import com.prodyna.pac.ars.service.ejb.PerformanceMonitored;
 import com.prodyna.pac.ars.service.ejb.Roles;
@@ -85,6 +86,5 @@ public class ReservationServiceBean implements ReservationService {
 				.setParameter("end", new Date(end), TemporalType.DATE)
 				.getResultList();
 	}
-
 
 }

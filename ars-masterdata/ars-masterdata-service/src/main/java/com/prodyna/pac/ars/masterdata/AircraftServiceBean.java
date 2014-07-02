@@ -23,7 +23,7 @@ import com.prodyna.pac.ars.service.ejb.Roles;
 
 @PerformanceMonitored
 @Stateless
-@DeclareRoles({ Roles.ADMIN, Roles.PILOT })
+@DeclareRoles({ Roles.ADMIN, Roles.PILOT, Roles.GUEST })
 public class AircraftServiceBean implements AircraftService {
 
 	@Inject
@@ -48,7 +48,7 @@ public class AircraftServiceBean implements AircraftService {
 	}
 
 	@Override
-	@RolesAllowed(Roles.PILOT)
+	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public @NotNull List<Aircraft> readAllAircrafts() {
 		this.log.debug("Loading list of all aircrafts");
 		return (List<Aircraft>) em.createNamedQuery("Aircraft.findAll", Aircraft.class).getResultList();
@@ -63,7 +63,7 @@ public class AircraftServiceBean implements AircraftService {
 	}
 
 	@Override
-	@RolesAllowed(Roles.PILOT)
+	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public Aircraft readAircraft(@Min(1) long id) {
 		return em.find(Aircraft.class, id);
 	}
@@ -79,7 +79,7 @@ public class AircraftServiceBean implements AircraftService {
 
 	
 	@Override
-	@RolesAllowed(Roles.PILOT)
+	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public Aircraft readAircraftByName(@Size(min=3) String name) {
 		return (Aircraft) em.createNamedQuery("Aircraft.findByName").setParameter("name", name).getSingleResult();
 	}

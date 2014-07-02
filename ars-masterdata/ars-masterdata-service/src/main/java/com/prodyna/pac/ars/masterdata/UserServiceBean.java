@@ -15,7 +15,6 @@ import javax.validation.constraints.Size;
 
 import org.slf4j.Logger;
 
-import com.prodyna.pac.ars.masterdata.model.Aircraft;
 import com.prodyna.pac.ars.masterdata.model.User;
 import com.prodyna.pac.ars.service.ejb.PerformanceMonitored;
 import com.prodyna.pac.ars.service.ejb.Roles;

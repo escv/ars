@@ -23,11 +23,11 @@
 						<directory>target/apidocs</directory>
 					</fileSet>
 					<fileSet>
-						<outputDirectory>/source</outputDirectory>
+						<outputDirectory>/sources</outputDirectory>
 						<directory>src/main</directory>
 					</fileSet>
 					<fileSet>
-						<outputDirectory>/deploy/db</outputDirectory>
+						<outputDirectory>/ddl</outputDirectory>
 						<directory>target/sql/hibernate3</directory>
 					</fileSet>
 					<fileSet>
@@ -44,8 +44,9 @@
 	<dependencySets>
 		<dependencySet>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
-			<outputDirectory>/deploy</outputDirectory>
+			<outputDirectory>/delivery</outputDirectory>
 		</dependencySet>
+		
 	</dependencySets>
 
 </assembly>
