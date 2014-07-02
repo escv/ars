@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.prodyna.pac.ars.reservation.model.Reservation;
-import com.prodyna.pac.ars.service.ejb.SecuredTest;
 
 @RunWith(Arquillian.class)
 public class ReserverationServiceTest extends SecuredTest {
@@ -41,7 +40,7 @@ public class ReserverationServiceTest extends SecuredTest {
 	@Inject
 	private ReservationService reservationService;
 
-	@Test
+	@Test(expected=Exception.class)
 	public void testValidReservation() {
 		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
 			@Override

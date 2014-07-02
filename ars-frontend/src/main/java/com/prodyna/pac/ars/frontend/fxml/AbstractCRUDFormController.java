@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import org.controlsfx.validation.ValidationSupport;
 
 /**
  *
@@ -23,6 +24,7 @@ public abstract class AbstractCRUDFormController <T> implements Initializable {
     protected Stage dialog;
     protected AbstractCRUDController controller;
     protected T entry;
+    protected ValidationSupport validation = new ValidationSupport();
     
     @FXML
     protected Button deleteButton;

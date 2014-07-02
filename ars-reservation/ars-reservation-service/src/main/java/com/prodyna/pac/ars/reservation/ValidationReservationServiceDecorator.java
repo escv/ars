@@ -14,14 +14,23 @@ public class ValidationReservationServiceDecorator implements
 		ReservationService {
 
 	@Inject @Delegate @Any ReservationService delegate;
+	@Inject ReservationValidator validator;
 	
 	@Override
 	public Reservation createReservation(Reservation reservation) {
+		String error = validator.validate(reservation);
+
+		if (error!=null && !error.isEmpty()) {
+			throw new IllegalArgumentException(error);
+		}
 		return this.delegate.createReservation(reservation);
 	}
 
 	@Override
 	public void updateReservation(Reservation reservation) {
+		if (reservation.getEnd().before(reservation.getBegin())) {
+			throw new IllegalArgumentException("End date must not before Begin date");
+		}
 		this.delegate.updateReservation(reservation);
 
 	}
@@ -38,8 +47,13 @@ public class ValidationReservationServiceDecorator implements
 	}
 
 	@Override
-	public List<Reservation> readAllReservationsForUser(long userId) {
-		return this.delegate.readAllReservationsForUser(userId);
+	public List<Reservation> readAllReservationsForUser(String userName) {
+		return this.delegate.readAllReservationsForUser(userName);
+	}
+
+	@Override
+	public List<Reservation> readAllReservationForAircraftAndDateRange(long aircraftId, long begin, long end) {
+		return this.delegate.readAllReservationForAircraftAndDateRange(aircraftId, begin, end);
 	}
 
 }

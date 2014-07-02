@@ -13,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 
 /**
  *
@@ -20,28 +22,30 @@ import javafx.stage.Stage;
  */
 public class AircraftTypeFormController extends AbstractCRUDFormController<AircraftType> {
 
-    @FXML
-    private TextField nameField;
-
+    @FXML  private TextField nameField;
+    
     @Override
     public void init(Stage aDialog, AbstractCRUDController aController, AircraftType at) {
         super.init(aDialog, aController, at);
         this.nameField.setText(at.getName());
+        validation.registerValidator(nameField, Validator.createEmptyValidator("Name is required"));
         this.deleteButton.setVisible(at.getId()>0);
     }
     
     @FXML protected void submitAircraftType(ActionEvent event) {
-        AircraftTypeService actService = ServiceProxyFactory.createServiceProxy(AircraftTypeService.class);
-        entry.setName(this.nameField.getText());
+        if (!validation.isInvalid()) {
+            AircraftTypeService actService = ServiceProxyFactory.createServiceProxy(AircraftTypeService.class);
+            entry.setName(this.nameField.getText());
 
-        if (!(entry.getId()>0)) {
-            AircraftType savedACT = actService.addAircraftType(entry);
-            this.controller.addEntry(savedACT);
-        } else {
-            actService.updateAircraftType(entry);
-            this.controller.refreshTable();
+            if (!(entry.getId()>0)) {
+                AircraftType savedACT = actService.addAircraftType(entry);
+                this.controller.addEntry(savedACT);
+            } else {
+                actService.updateAircraftType(entry);
+                this.controller.refreshTable();
+            }
+            dialog.close();
         }
-        dialog.close();
     }
     
     @FXML protected void removeAircraftType(ActionEvent event) {

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" id="ACTAnchorPane" fx:controller="com.prodyna.pac.ars.frontend.fxml.MyReservationController" >
+    <Label styleClass="title" text="Reservation Management"/>
+     
+    <TableView fx:id="entryTable">
+        <columns>
+            <TableColumn fx:id="aircraftColumn" text="Aircraft" prefWidth="100" />
+            <TableColumn text="Begin" prefWidth="100">
+                  <cellValueFactory>
+                      <PropertyValueFactory property="begin" />
+                  </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="End" prefWidth="100">
+                  <cellValueFactory>
+                      <PropertyValueFactory property="end" />
+                  </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="State" prefWidth="100">
+                  <cellValueFactory>
+                      <PropertyValueFactory property="state" />
+                  </cellValueFactory>
+            </TableColumn>
+          </columns>
+    </TableView>
+    
+    <Button onAction="#showCreateForm" text="New Reservation"/>
+</VBox>

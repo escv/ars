@@ -1,13 +1,16 @@
-
-#pnHeader {
-    -fx-background-image: url("../images/CleanGrayBackGround.jpg");              
-    -fx-background-position: left top;
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
+#root {
+    -fx-background-color: rgb(205,10,50);
 }
-#lblTitle {
-    -fx-font-size: 32px;
-    -fx-font-family: "Arial Black";
+#mainTabPane {
+    -fx-background-color: white;
+}
+.title {
+    -fx-font-size: 24px;
+    -fx-font-family: "Calibri Light";
     -fx-fill: #F1F1F1;
     -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+.deleteBtn {
+    -fx-background-color: rgb(205,10,50);
+    -fx-text-fill: white;
 }

@@ -8,16 +8,11 @@
 <?import javafx.scene.text.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" id="ACTAnchorPane" fx:controller="com.prodyna.pac.ars.frontend.fxml.AircraftController" >
-    <Label text="Aircaft Management"/>
-    <Button onAction="#showCreateForm" text="New Aircraft"/> 
+    <Label styleClass="title" text="Aircaft Management"/>
+    
     <TableView fx:id="entryTable">
         <columns>
               <TableColumn text="Name" prefWidth="75">
-                  <cellValueFactory>
-                      <PropertyValueFactory property="name" />
-                  </cellValueFactory>
-              </TableColumn>
-              <TableColumn text="Tailsign" prefWidth="100">
                   <cellValueFactory>
                       <PropertyValueFactory property="name" />
                   </cellValueFactory>
@@ -31,4 +26,5 @@
           </columns>
     </TableView>
     
+    <Button onAction="#showCreateForm" text="New Aircraft"/> 
 </VBox>

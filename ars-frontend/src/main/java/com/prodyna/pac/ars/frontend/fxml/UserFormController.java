@@ -21,6 +21,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.controlsfx.control.SelectableCheckListView;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 
 /**
  *
@@ -33,13 +35,13 @@ public class UserFormController extends AbstractCRUDFormController<User> {
     @FXML private PasswordField passwordField;
     @FXML private SelectableCheckListView<UserRole> rolesChoice;
     @FXML private SelectableCheckListView<UserRole> licenseChoice;
-
+    
     @Override
     public void init(Stage aDialog, AbstractCRUDController aController, User user) {
         super.init(aDialog, aController, user);
         this.nameField.setText(user.getName());
         this.mailField.setText(user.getEmail());
-        this.passwordField.setPromptText("LEAVE EMPTY TO NOT CHANGE IT");
+        this.passwordField.setPromptText("EMPTY TO NOT CHANGE IT");
         this.deleteButton.setVisible(user.getId()>0);
         
         UserRoleService roleService = ServiceProxyFactory.createServiceProxy(UserRoleService.class);
@@ -49,28 +51,35 @@ public class UserFormController extends AbstractCRUDFormController<User> {
         for (UserRole role : user.getRoles()) {
             this.rolesChoice.getCheckModel().select(role);
         }
+        
+        // hook in validators
+        validation.registerValidator(nameField, Validator.createEmptyValidator("Name is required"));
+        validation.registerValidator(mailField, Validator.createEmptyValidator("Mail is required"));
+        validation.registerValidator(passwordField, Validator.createEmptyValidator("Password is required"));
     }
     
     @FXML protected void submitUser(ActionEvent event) {
+        if (!validation.isInvalid()) {
         UserService actService = ServiceProxyFactory.createServiceProxy(UserService.class);
         entry.setName(this.nameField.getText());
         entry.setEmail(this.mailField.getText());
         entry.getRoles().clear();
         entry.getRoles().addAll(this.rolesChoice.getCheckModel().getSelectedItems());
-        try {
-            if (!passwordField.getText().isEmpty()) {
-                entry.setPasswordDigest(digestPassword(passwordField.getText()));
+            try {
+                if (!passwordField.getText().isEmpty()) {
+                    entry.setPasswordDigest(digestPassword(passwordField.getText()));
+                }
+                if (!(entry.getId()>0)) {
+                    User savedACT = actService.addUser(entry);
+                    this.controller.addEntry(savedACT);
+                } else {
+                    actService.updateUser(entry);
+                    this.controller.refreshTable();
+                }
+                dialog.close();
+            } catch (Exception e) {
+                // TODO Error handling
             }
-            if (!(entry.getId()>0)) {
-                User savedACT = actService.addUser(entry);
-                this.controller.addEntry(savedACT);
-            } else {
-                actService.updateUser(entry);
-                this.controller.refreshTable();
-            }
-            dialog.close();
-        } catch (Exception e) {
-            // TODO Error handling
         }
     }
     

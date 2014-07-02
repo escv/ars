@@ -19,6 +19,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 
 /**
  *
@@ -62,21 +64,28 @@ public class AircraftFormController extends AbstractCRUDFormController<Aircraft>
             }
         });
         actChoice.setItems(actChoices);
+        
+        // hook in validators
+        validation.registerValidator(nameField, Validator.createEmptyValidator("Name is required"));
+        validation.registerValidator(tailsignField, Validator.createEmptyValidator("Tailsign is required"));
+        validation.registerValidator(actChoice, Validator.createEmptyValidator("AircraftType is required"));
     }
     
     @FXML protected void submitAircraft(ActionEvent event) {
-        entry.setName(this.nameField.getText());
-        entry.setTailsign(this.tailsignField.getText());
-        entry.setType(this.actChoice.getSelectionModel().getSelectedItem());
+        if (!validation.isInvalid()) {
+            entry.setName(this.nameField.getText());
+            entry.setTailsign(this.tailsignField.getText());
+            entry.setType(this.actChoice.getSelectionModel().getSelectedItem());
 
-        if (!(entry.getId()>0)) {
-            Aircraft savedACT = aircraftService.addAircraft(entry);
-            this.controller.addEntry(savedACT);
-        } else {
-            aircraftService.updateAircraft(entry);
-            this.controller.refreshTable();
+            if (!(entry.getId()>0)) {
+                Aircraft savedACT = aircraftService.addAircraft(entry);
+                this.controller.addEntry(savedACT);
+            } else {
+                aircraftService.updateAircraft(entry);
+                this.controller.refreshTable();
+            }
+            dialog.close();
         }
-        dialog.close();
     }
     
     @FXML protected void removeAircraft(ActionEvent event) {

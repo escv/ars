@@ -8,8 +8,8 @@
 <?import javafx.scene.text.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.prodyna.pac.ars.frontend.fxml.UserController" >
-    <Label text="User Management"/>
-    <Button onAction="#showCreateForm" text="New User"/> 
+    <Label styleClass="title" text="User Management"/>
+     
     <TableView fx:id="entryTable">
         <columns>
               <TableColumn text="Name" prefWidth="100">
@@ -25,4 +25,5 @@
           </columns>
     </TableView>
     
+    <Button onAction="#showCreateForm" text="New User"/>
 </VBox>

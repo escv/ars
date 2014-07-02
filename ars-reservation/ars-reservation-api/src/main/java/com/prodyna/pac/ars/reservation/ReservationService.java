@@ -18,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.prodyna.pac.ars.reservation.model.Reservation;
 
-@Path("/license")
+@Path("/reservation")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Local
@@ -38,7 +38,11 @@ public interface ReservationService {
 	@NotNull List<Reservation> readAllReservations();
 	
 	@GET
-	@Path("user/{userId}")
-	List<Reservation> readAllReservationsForUser(@PathParam("userId") long userId);
+	@Path("user/{userName}")
+	List<Reservation> readAllReservationsForUser(@PathParam("userName") String userName);
+	
+	@GET
+	@Path("aircraft/{aircraftId}/begin/{begin}/end/{end}")
+	List<Reservation> readAllReservationForAircraftAndDateRange(@PathParam("aircraftId") long aircraftId, @PathParam("begin") long begin, @PathParam("end") long end);
 	
 }

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- DataSource & Connection info. 
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/zzz</property>
+        <property name="hibernate.connection.username">zzz</property>
+        <property name="hibernate.connection.password">zzz</property>
+        <property name="hibernate.connection.pool_size">1</property>
+ -->
+ 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+ 		
+        <!-- All our Hibernate mapping XML files. -->
+		<mapping class="com.prodyna.pac.ars.masterdata.model.AircraftType" />
+        <mapping class="com.prodyna.pac.ars.masterdata.model.Aircraft" />
+        <mapping class="com.prodyna.pac.ars.masterdata.model.UserRole" />
+        <mapping class="com.prodyna.pac.ars.masterdata.model.User" />
+        <mapping class="com.prodyna.pac.ars.reservation.model.Reservation" />
+        <mapping class="com.prodyna.pac.ars.reservation.model.UserAircraftTypeLicense" />
+    </session-factory>
+</hibernate-configuration>

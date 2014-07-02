@@ -3,38 +3,52 @@ package com.prodyna.pac.ars.reservation.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 
 import com.prodyna.pac.ars.masterdata.model.Aircraft;
 import com.prodyna.pac.ars.masterdata.model.User;
 
+@Entity
+@NamedQueries({
+	@NamedQuery(name="Reservation.findAll", 
+			query="SELECT r FROM Reservation r"),
+	@NamedQuery(name="Reservation.findByUserName", 
+			query="SELECT r FROM Reservation r WHERE r.user.name=:userName"),
+	@NamedQuery(name="Reservation.findByAircraftAndDateRange", 
+			query="SELECT r FROM Reservation r WHERE r.aircraft.id=:aircraftId AND r.begin<:beginDate AND r.end>:endDate")
+})
 public class Reservation implements Serializable {
 
 	private static final long serialVersionUID = 7141077664027679705L;
 	
 	@Id
+	@GeneratedValue
 	private long id;
 	
 	@Enumerated(EnumType.STRING)
 	private ReservationState state;
 	
-	//@NotNull
 	private Date created;
 	
-	//@NotNull
+    @NotNull
 	private Date begin;
 	
-	//@NotNull
+	@NotNull
 	private Date end;
 	
-	//@NotNull
+	@NotNull
 	@ManyToOne
 	private User user;
 	
-	//@NotNull
+	@NotNull
 	@ManyToOne
 	private Aircraft aircraft;
 

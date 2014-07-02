@@ -1,5 +1,6 @@
 package com.prodyna.pac.ars.reservation;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.security.DeclareRoles;
@@ -8,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -34,15 +36,22 @@ public class ReservationServiceBean implements ReservationService {
 	@Override
 	@RolesAllowed(Roles.PILOT)
 	public Reservation createReservation(@NotNull @Valid Reservation reservation) {
-		// TODO Auto-generated method stub
-		return null;
+		if (reservation.getId()>0) {
+			throw new IllegalArgumentException("Reservation already has a persistence ID");
+		}
+		log.debug("Adding license");
+		reservation.setCreated(new Date());
+		em.persist(reservation);
+		log.info("new reservation with ID [{}] for user [{}] created", reservation.getId(), reservation.getUser().getName());
+		
+		return reservation;
 	}
 
 	@Override
 	@RolesAllowed(Roles.PILOT)
 	public void updateReservation(@NotNull @Valid Reservation reservation) {
-		// TODO Auto-generated method stub
-		
+		em.merge(reservation);
+		log.info("Reservation with ID [{}] was updated", reservation.getId());
 	}
 
 	@Override
@@ -63,8 +72,18 @@ public class ReservationServiceBean implements ReservationService {
 	@SuppressWarnings("unchecked")
 	@Override
 	@RolesAllowed(Roles.PILOT)
-	public List<Reservation> readAllReservationsForUser(long userId) {
-		return (List<Reservation>) em.createNamedQuery("Reservation.findByUserId").setParameter("userId", userId).getResultList();
+	public List<Reservation> readAllReservationsForUser(String userName) {
+		return (List<Reservation>) em.createNamedQuery("Reservation.findByUserName").setParameter("userName", userName).getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Reservation> readAllReservationForAircraftAndDateRange(long aircraftId, long begin, long end) {
+		return (List<Reservation>) em.createNamedQuery("Reservation.findByAircraftAndDateRange")
+				.setParameter("aircraftId", aircraftId)
+				.setParameter("begin", new Date(begin), TemporalType.DATE)
+				.setParameter("end", new Date(end), TemporalType.DATE)
+				.getResultList();
 	}
 
 

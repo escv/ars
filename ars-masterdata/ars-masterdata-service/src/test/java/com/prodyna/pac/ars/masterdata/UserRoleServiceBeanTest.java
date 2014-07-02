@@ -20,7 +20,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.prodyna.pac.ars.masterdata.model.UserRole;
-import com.prodyna.pac.ars.service.ejb.SecuredTest;
 
 @RunWith(Arquillian.class)
 public class UserRoleServiceBeanTest extends SecuredTest {

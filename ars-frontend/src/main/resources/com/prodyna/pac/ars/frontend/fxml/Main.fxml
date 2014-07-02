@@ -1,29 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import java.net.URL?>
 
-<TabPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prodyna.pac.ars.frontend.fxml.MainController" >
-    <tabs>
-        <Tab text="Aircraft Types" closable="false">
-            <content>
-                <fx:include fx:id="acType" source="AircraftType.fxml"/>
-            </content>
-        </Tab>
-        <Tab text="Aircraft" closable="false">
-            <content>
-                <fx:include fx:id="ac" source="Aircraft.fxml"/>
-            </content>
-        </Tab>
-        <Tab text="User" closable="false">
-            <content>
-                <fx:include fx:id="user" source="User.fxml"/>
-            </content>
-        </Tab>
-        <Tab text="License" closable="false">
-            <content>
-                <fx:include fx:id="license" source="License.fxml"/>
-            </content>
-        </Tab>
-    </tabs>
-</TabPane>
-        
+    
+<VBox id="root" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@../css/Main.css" />
+    </stylesheets>
+    <ImageView>
+            <Image url="@../images/logo.png"/>
+    </ImageView>
+    <TabPane id="mainTabPane" >
+        <tabs>
+            <Tab text="Aircraft Types" closable="false">
+                <content>
+                    <fx:include fx:id="acType" source="AircraftType.fxml"/>
+                </content>
+            </Tab>
+            <Tab text="Aircraft" closable="false">
+                <content>
+                    <fx:include fx:id="ac" source="Aircraft.fxml"/>
+                </content>
+            </Tab>
+            <Tab text="User" closable="false">
+                <content>
+                    <fx:include fx:id="user" source="User.fxml"/>
+                </content>
+            </Tab>
+            <Tab text="License" closable="false">
+                <content>
+                    <fx:include fx:id="license" source="License.fxml"/>
+                </content>
+            </Tab>
+            <Tab text="My Reservations" closable="false">
+                <content>
+                    <fx:include fx:id="reservation" source="MyReservation.fxml"/>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+</VBox>

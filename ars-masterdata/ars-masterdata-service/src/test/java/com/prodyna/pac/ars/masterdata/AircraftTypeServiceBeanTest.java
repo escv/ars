@@ -20,7 +20,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.prodyna.pac.ars.masterdata.model.AircraftType;
-import com.prodyna.pac.ars.service.ejb.SecuredTest;
 
 @RunWith(Arquillian.class)
 public class AircraftTypeServiceBeanTest extends SecuredTest {

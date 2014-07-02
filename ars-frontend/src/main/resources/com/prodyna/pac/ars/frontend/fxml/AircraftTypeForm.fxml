@@ -6,11 +6,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.text.*?>
+<?import java.net.URL?>
 
 <GridPane 
     xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" fx:controller="com.prodyna.pac.ars.frontend.fxml.AircraftTypeFormController">
+        <stylesheets>
+            <URL value="@../css/Main.css" />
+        </stylesheets>
         <padding>
-            <Insets top="25" right="25" bottom="10" left="25"/>
+            <Insets top="15" right="25" bottom="10" left="25"/>
         </padding>
     
         <Text text="Create New" 
@@ -23,7 +27,7 @@
         <TextField fx:id="nameField"
             GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         
-        <Button fx:id="deleteButton" GridPane.columnIndex="0" GridPane.rowIndex="2" text="DELETE" onAction="#removeAircraftType"/>
+        <Button fx:id="deleteButton" styleClass="deleteBtn" GridPane.columnIndex="0" GridPane.rowIndex="2" text="DELETE" onAction="#removeAircraftType"/>
         <Button GridPane.columnIndex="1" GridPane.rowIndex="2" text="OK" onAction="#submitAircraftType"/>
         
 </GridPane>

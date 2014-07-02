@@ -7,41 +7,41 @@
 package com.prodyna.pac.ars.frontend.fxml;
 
 import com.prodyna.pac.ars.frontend.service.ServiceProxyFactory;
-import com.prodyna.pac.ars.masterdata.AircraftService;
 import com.prodyna.pac.ars.masterdata.model.Aircraft;
 import com.prodyna.pac.ars.masterdata.model.AircraftType;
+import com.prodyna.pac.ars.reservation.ReservationService;
+import com.prodyna.pac.ars.reservation.model.Reservation;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValueBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 
 /**
  *
  * @author aalbert
  */
-public class AircraftController extends AbstractCRUDController<Aircraft> {
+public class MyReservationController extends AbstractCRUDController<Reservation> {
     
-    private AircraftService acService;
+    private ReservationService reservationService;
+    
+    @FXML TableColumn<Reservation, String> aircraftColumn;
   
-    @FXML private TableColumn<Aircraft, String> typeColumn;
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        acService = ServiceProxyFactory.createServiceProxy(AircraftService.class);
-        entries.addAll(acService.readAllAircrafts());
-        
-        typeColumn.setCellValueFactory((CellDataFeatures<Aircraft, String> data) -> {
-            final AircraftType at = data.getValue().getType();
+        reservationService = ServiceProxyFactory.createServiceProxy(ReservationService.class);
+        entries.addAll(reservationService.readAllReservations());
+        aircraftColumn.setCellValueFactory((TableColumn.CellDataFeatures<Reservation, String> data) -> {
+            final Aircraft aircraft = data.getValue().getAircraft();
             return new ObservableValueBase<String>(){
                 @Override
                 public String getValue() {
-                    return at==null?"":at.getName();
+                    return aircraft==null?"":aircraft.getName();
                 }
             };  
-        });  
+        });
         entryTable.setItems(entries);
 
         initTableListener();
@@ -49,12 +49,13 @@ public class AircraftController extends AbstractCRUDController<Aircraft> {
     
     @FXML
     public void showCreateForm(ActionEvent event) {
-        showForm(new Aircraft(), getFXMLForm());
+        showForm(new Reservation(), getFXMLForm());
     }
 
     @Override
     protected String getFXMLForm() {
-        return "fxml/AircraftForm.fxml";
+        return "fxml/MyReservationForm.fxml";
     }
-
+ 
+    
 }

@@ -36,8 +36,8 @@ public class LicenseFormController extends AbstractCRUDFormController<UserAircra
     @FXML private DatePicker validUntilPicker;
 
     @Override
-    public void init(Stage aDialog, AbstractCRUDController aController, UserAircraftTypeLicense at) {
-        super.init(aDialog, aController, at);
+    public void init(Stage aDialog, AbstractCRUDController aController, UserAircraftTypeLicense license) {
+        super.init(aDialog, aController, license);
         
         AircraftTypeService actypeService = ServiceProxyFactory.createServiceProxy(AircraftTypeService.class);
         ObservableList<AircraftType> actChoices = FXCollections.observableArrayList(actypeService.readAllAircraftTypes());
@@ -47,7 +47,17 @@ public class LicenseFormController extends AbstractCRUDFormController<UserAircra
         ObservableList<User> userChoices = FXCollections.observableArrayList(userService.readAllUsers());
         this.userChoice.setItems(userChoices);
         
-        this.deleteButton.setVisible(at.getId()>0);
+        this.userChoice.getSelectionModel().select(license.getUser());
+        this.aircraftTypeChoice.getSelectionModel().select(license.getAircraftType());
+        if (license.getValidFrom()!=null) {
+            Instant instant = license.getValidFrom().toInstant();
+            this.validFromPicker.setValue(instant.atZone(ZoneId.systemDefault()).toLocalDate());
+        }
+        if (license.getValidUntil()!=null) {
+            Instant instant = license.getValidUntil().toInstant();
+            this.validUntilPicker.setValue(instant.atZone(ZoneId.systemDefault()).toLocalDate());
+        }
+        this.deleteButton.setVisible(license.getId()>0);
     }
     
     @FXML protected void submitUserAircraftTypeLicense(ActionEvent event) {

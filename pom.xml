@@ -9,7 +9,7 @@
 	<description>Aircraft Reservation Service</description>
 
 	<dependencies>
-	  	<dependency>
+		<dependency>
 			<groupId>org.jboss.spec</groupId>
 			<artifactId>jboss-javaee-7.0</artifactId>
 			<version>1.0.0.Final</version>
@@ -39,11 +39,9 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
-
-
-
 
 	<modules>
 		<module>ars-reservation</module>

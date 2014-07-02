@@ -13,7 +13,7 @@ import com.prodyna.pac.ars.masterdata.model.AircraftType;
 
 public class ServiceProxyFactoryTest {
 	
-	@Test
+	//@Test
 	public void testAircraftServiceProxy() throws Exception {
 		AircraftService aircraftService = ServiceProxyFactory.createServiceProxy(AircraftService.class);
 		Assert.assertNotNull(aircraftService);

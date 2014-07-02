@@ -52,14 +52,13 @@ import javafx.util.Callback;
  * state.
  * 
  * <h3>Screenshot</h3>
- * <p>The following screenshot shows the CheckListView with some sample data:
+ * <p>The following screenshot shows the CheckListView with some sample data:</p>
  * 
- * <br/>
- * <img src="checkListView.png"/>
+ * 
  * 
  * <h3>Code Example:</h3>
  * <p>To create the CheckListView shown in the screenshot, simply do the 
- * following:
+ * following:</p>
  * 
  * <pre>
  * {@code

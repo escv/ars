@@ -7,11 +7,15 @@
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.text.*?>
 <?import org.controlsfx.control.*?>
+<?import java.net.URL?>
 
 <GridPane 
     xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" fx:controller="com.prodyna.pac.ars.frontend.fxml.UserFormController">
+        <stylesheets>
+            <URL value="@../css/Main.css" />
+        </stylesheets>
         <padding>
-            <Insets top="25" right="25" bottom="10" left="25"/>
+            <Insets top="15" right="25" bottom="10" left="25"/>
         </padding>
     
         <Text text="Create New" 
@@ -33,7 +37,7 @@
         <Label text="License:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
         <SelectableCheckListView fx:id="licenseChoice" GridPane.columnIndex="1" GridPane.rowIndex="5" prefHeight="100" />
         
-        <Button fx:id="deleteButton" GridPane.columnIndex="0" GridPane.rowIndex="6" text="DELETE" onAction="#removeUser"/>
+        <Button fx:id="deleteButton" styleClass="deleteBtn" GridPane.columnIndex="0" GridPane.rowIndex="6" text="DELETE" onAction="#removeUser"/>
         <Button GridPane.columnIndex="1" GridPane.rowIndex="6" text="OK" onAction="#submitUser"/>
         
 </GridPane>

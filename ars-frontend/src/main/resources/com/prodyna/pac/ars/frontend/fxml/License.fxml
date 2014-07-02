@@ -8,19 +8,18 @@
 <?import javafx.scene.text.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" id="ACTAnchorPane" fx:controller="com.prodyna.pac.ars.frontend.fxml.LicenseController" >
-    <Label text="User License Management"/>
-    <Button onAction="#showCreateForm" text="New UserLicense"/>
+    <Label styleClass="title" text="User License Management"/>
     
     <TableView fx:id="entryTable">
         <columns>
-              <TableColumn fx:id="pilotColumn" text="Type" prefWidth="100" />
+              <TableColumn fx:id="pilotColumn" text="Pilot" prefWidth="100" />
               <TableColumn fx:id="aircraftTypeColumn" text="Type" prefWidth="100" />
-              <TableColumn text="Valid From" prefWidth="100">
+              <TableColumn text="Valid From" prefWidth="140">
                   <cellValueFactory>
                       <PropertyValueFactory property="validFrom" />
                   </cellValueFactory>
               </TableColumn>
-              <TableColumn text="Valid Unit" prefWidth="100">
+              <TableColumn text="Valid Unit" prefWidth="140">
                   <cellValueFactory>
                       <PropertyValueFactory property="validUntil" />
                   </cellValueFactory>
@@ -28,4 +27,5 @@
           </columns>
     </TableView>
     
+    <Button onAction="#showCreateForm" text="New UserLicense"/>
 </VBox>

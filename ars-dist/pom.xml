@@ -64,6 +64,45 @@
 			</plugin>
 		
 			<plugin>
+			    <groupId>org.codehaus.mojo</groupId>
+			    <artifactId>hibernate3-maven-plugin</artifactId>
+			    <version>3.0</version>
+			    <configuration>
+			        <hibernatetool>
+			            <hbm2ddl create="true" export="false" outputfilename="create-ddl-mysql.sql" format="true" console="true">
+			                <configuration configurationfile="src/test/resources/hibernate.cfg.xml"/>
+			            </hbm2ddl>
+			        </hibernatetool>
+			    </configuration>
+			    <dependencies>
+			        <dependency>
+			            <groupId>org.hibernate</groupId>
+			            <artifactId>hibernate-entitymanager</artifactId>
+			            <version>3.6.10.Final</version>
+			            <exclusions>
+			                <exclusion>
+			                    <groupId>javassist</groupId>
+			                    <artifactId>javassist</artifactId>
+			                </exclusion>
+			            </exclusions>
+			        </dependency>
+			        <dependency>
+			            <groupId>org.javassist</groupId>
+			            <artifactId>javassist</artifactId>
+			            <version>3.18.1-GA</version>
+			        </dependency>
+			    </dependencies>
+			    <executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>hbm2ddl</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<groupId>org.wildfly.plugins</groupId>
 				<artifactId>wildfly-maven-plugin</artifactId>
 				<version>1.0.0.Final</version>

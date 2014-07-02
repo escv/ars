@@ -1,4 +1,4 @@
-package com.prodyna.pac.ars.service.ejb;
+package com.prodyna.pac.ars.reservation;
 
 import java.io.IOException;
 import java.util.HashMap;
