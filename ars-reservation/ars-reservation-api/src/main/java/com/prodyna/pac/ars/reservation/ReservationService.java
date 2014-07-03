@@ -35,6 +35,10 @@ public interface ReservationService {
 	void cancelReservation(@PathParam("id") @Min(1) long id);
 	
 	@GET
+	@Path("{id}")
+	Reservation readReservation(@PathParam("id") @Min(1) long id);
+	
+	@GET
 	@NotNull List<Reservation> readAllReservations();
 	
 	@GET

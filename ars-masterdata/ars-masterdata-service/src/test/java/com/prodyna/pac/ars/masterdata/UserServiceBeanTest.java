@@ -3,11 +3,11 @@
  */
 package com.prodyna.pac.ars.masterdata;
 
-import java.security.PrivilegedAction;
 import java.util.List;
 
+import javax.ejb.EJBException;
 import javax.inject.Inject;
-import javax.security.auth.Subject;
+import javax.persistence.NoResultException;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -36,177 +36,116 @@ public class UserServiceBeanTest extends SecuredTest {
 	@Inject
 	private UserService userService;
 
+	@Test(expected = EJBException.class)
+	public void testDidntFindById() throws Exception {
+		this.userService.readUser(82L);
+	}
+
 	@Test(expected = Exception.class)
 	public void testCreateNull() {
-		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
-			@Override
-			public Void run() {
-				userService.addUser(null);
-				return null;
-			}
-		});
+		userService.addUser(null);
 	}
 
 	@Test(expected = Exception.class)
 	public void testUpdateNull() {
-		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
-			@Override
-			public Void run() {
-				userService.updateUser(null);
-				return null;
-			}
-		});
+		userService.updateUser(null);
 	}
 
 	@Test(expected = Exception.class)
 	public void testInvalidObject() {
-		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
-			@Override
-			public Void run() {
-
-				User u = new User();
-				u.setName("A");
-				userService.addUser(u);
-				return null;
-			}
-		});
+		User u = new User();
+		u.setName("A");
+		userService.addUser(u);
 	}
 
 	@Test(expected = Exception.class)
 	public void testInvalidEMail() {
-		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
-			@Override
-			public Void run() {
 
-				User u = new User();
-				u.setName("Andre");
-				u.setPasswordDigest("1234567890qwertzuiop0987654321ZZ");
-				u.setEmail("andre@albert");
-				userService.addUser(u);
-				return null;
-			}
-		});
+		User u = new User();
+		u.setName("Andre");
+		u.setPasswordDigest("1234567890qwertzuiop0987654321ZZ");
+		u.setEmail("andre@albert");
+		userService.addUser(u);
 	}
 
-	@Test(expected = Exception.class)
+	@Test(expected=EJBException.class)
 	public void testDidntFindByName() throws Exception {
-		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
-			@Override
-			public Void run() {
-
-				Assert.assertNull(userService.readUserByName("YET A TEST"));
-				return null;
-			}
-		});
+		userService.readUserByName("YET A TEST");
 	}
 
 	@Test
 	@InSequence(1)
 	public void testCreateUser() throws Exception {
-		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
-			@Override
-			public Void run() {
 
-				User user = new User();
-				user.setName("Jo");
-				user.setPasswordDigest("1234567890qwertzuiop0987654321ZZ");
-				user.setEmail("valid@email.com");
-				User created = userService.addUser(user);
-				Assert.assertTrue(created.getId() > 0);
-				return null;
-			}
-		});
+		User user = new User();
+		user.setName("Jo");
+		user.setPasswordDigest("1234567890qwertzuiop0987654321ZZ");
+		user.setEmail("valid@email.com");
+		User created = userService.addUser(user);
+		Assert.assertTrue(created.getId() > 0);
 	}
 
 	@Test
 	@InSequence(2)
 	public void testReadSingle() throws Exception {
-		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
-			@Override
-			public Void run() {
+		User user = new User();
+		user.setName("Max");
+		user.setEmail("valid@email.com");
+		user.setPasswordDigest("1234567890qwertzuiop0987654321ZZ");
+		User created = userService.addUser(user);
 
-				User user = new User();
-				user.setName("Max");
-				user.setEmail("valid@email.com");
-				user.setPasswordDigest("1234567890qwertzuiop0987654321ZZ");
-				User created = userService.addUser(user);
+		User readUser = userService.readUser(created.getId());
 
-				User readUser = userService.readUser(created.getId());
-
-				Assert.assertEquals(user, readUser);
-				return null;
-			}
-		});
+		Assert.assertEquals(user, readUser);
 	}
 
 	@Test
 	@InSequence(3)
 	public void testReadByName() throws Exception {
-		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
-			@Override
-			public Void run() {
-				User user = userService.readUserByName("Jo");
-				Assert.assertEquals("valid@email.com", user.getEmail());
-				return null;
-			}
-		});
+		User user = userService.readUserByName("Jo");
+		Assert.assertEquals("valid@email.com", user.getEmail());
 	}
 
 	@Test
 	@InSequence(4)
 	public void testReadAllUser() {
-		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
-			@Override
-			public Void run() {
-				List<User> allUsers = userService.readAllUsers();
-				Assert.assertEquals(2 + 1, allUsers.size()); // one user gets
-																// created on
-																// initializer
-																// /thats
-																// why +1/
-				boolean foundJo = false, foundMax = false;
-				for (User u : allUsers) {
-					if ("Jo".equals(u.getName())) {
-						foundJo = true;
-					}
-					if ("Max".equals(u.getName())) {
-						foundMax = true;
-					}
-				}
-				Assert.assertTrue(foundJo && foundMax);
-				return null;
+		List<User> allUsers = userService.readAllUsers();
+		Assert.assertEquals(2 + 1, allUsers.size()); // one user gets created on
+														// initializer thats why
+														// +1/
+		boolean foundJo = false, foundMax = false;
+		for (User u : allUsers) {
+			if ("Jo".equals(u.getName())) {
+				foundJo = true;
 			}
-		});
+			if ("Max".equals(u.getName())) {
+				foundMax = true;
+			}
+		}
+		Assert.assertTrue(foundJo && foundMax);
 	}
 
 	@Test(expected = Exception.class)
 	@InSequence(5)
 	public void testUniqueName() {
-		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
-			@Override
-			public Void run() {
-				User user = new User();
-				user.setName("Max");
-				user.setEmail("valid@email.com");
-				user.setPasswordDigest("1234567890qwertzuiop0987654321ZZ");
-				userService.addUser(user);
-				return null;
-			}
-		});
+		User user = new User();
+		user.setName("Max");
+		user.setEmail("valid@email.com");
+		user.setPasswordDigest("1234567890qwertzuiop0987654321ZZ");
+		userService.addUser(user);
 	}
 
 	@Test
 	@InSequence(6)
-	public void testRemoveAircraft() throws Exception {
-		Subject.doAs(loginContext.getSubject(), new PrivilegedAction<Void>() {
-			@Override
-			public Void run() {
-				User jo = userService.readUserByName("Jo");
-				userService.removeUser(jo.getId());
-				Assert.assertNull(userService.readUser(jo.getId()));
-				return null;
-			}
-		});
+	public void testRemoveUser() throws Exception {
+		User jo = userService.readUserByName("Jo");
+		userService.removeUser(jo.getId());
+		try {
+			this.userService.readUser(jo.getId());
+			Assert.fail("No Exception thrown for reading not existent entity");
+		} catch (EJBException e) {
+			
+		}
 	}
 
 }

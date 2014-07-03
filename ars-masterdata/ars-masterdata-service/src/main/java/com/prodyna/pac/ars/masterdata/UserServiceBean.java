@@ -7,6 +7,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -56,7 +57,11 @@ public class UserServiceBean implements UserService {
 	@Override
 	@RolesAllowed(Roles.PILOT)
 	public User readUser(@Min(1) long id) {
-		return em.find(User.class, id);
+		User entity = em.find(User.class, id);
+		if (entity==null) {
+			throw new NoResultException("No Aircraft with id "+id+" exists");
+		}
+		return entity;
 	}
 
 	@Override

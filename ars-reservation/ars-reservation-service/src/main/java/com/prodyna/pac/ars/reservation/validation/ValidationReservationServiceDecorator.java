@@ -56,5 +56,10 @@ public class ValidationReservationServiceDecorator implements
 	public List<Reservation> readAllReservationForAircraftAndDateRange(long aircraftId, long begin, long end) {
 		return this.delegate.readAllReservationForAircraftAndDateRange(aircraftId, begin, end);
 	}
+	
+	@Override
+	public Reservation readReservation(long id) {
+		return delegate.readReservation(id);
+	}
 
 }

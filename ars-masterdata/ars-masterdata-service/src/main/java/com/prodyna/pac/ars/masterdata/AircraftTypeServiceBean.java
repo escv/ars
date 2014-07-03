@@ -7,6 +7,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -59,7 +60,11 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 	@Override
 	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public AircraftType readAircraftType(@Min(1) long id) {
-		return em.find(AircraftType.class, id);
+		AircraftType entity = em.find(AircraftType.class, id);
+		if (entity==null) {
+			throw new NoResultException("No AircraftType with id "+id+" exists");
+		}
+		return entity;
 	}
 
 	

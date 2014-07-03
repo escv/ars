@@ -30,7 +30,11 @@ import com.prodyna.pac.ars.masterdata.model.User;
 					+ " OR (r.begin>=:beginDate AND r.begin<=:endDate)"
 					+ " OR (r.end>=:beginDate AND r.end<=:endDate)"),
 	@NamedQuery(name="Aircraft.findAircraftWithoutCurrentReservation", 
-			query="SELECT a FROM Aircraft a WHERE NOT EXISTS (SELECT r FROM Reservation r WHERE r.aircraft=a) ")
+			query="SELECT a FROM Aircraft a WHERE NOT EXISTS (SELECT r FROM Reservation r WHERE r.aircraft=a) "),
+	@NamedQuery(name="Reservation.findToLENT", 
+			query="SELECT r FROM Reservation r WHERE r.state = :srcState AND r.begin<=CURRENT_TIMESTAMP AND r.end>CURRENT_TIMESTAMP"),
+	@NamedQuery(name="Reservation.findToRETURNED", 
+			query="SELECT r FROM Reservation r WHERE r.state = :srcState AND r.end<CURRENT_TIMESTAMP")
 })
 public class Reservation implements Serializable {
 

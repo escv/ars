@@ -7,6 +7,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -58,7 +59,11 @@ public class UserRoleServiceBean implements UserRoleService {
 	@Override
 	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public UserRole readUserRole(@Min(1) long id) {
-		return em.find(UserRole.class, id);
+		UserRole entity = em.find(UserRole.class, id);
+		if (entity==null) {
+			throw new NoResultException("No UserRole with id "+id+" exists");
+		}
+		return entity;
 	}
 
 	

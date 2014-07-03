@@ -9,6 +9,7 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -65,9 +66,12 @@ public class AircraftServiceBean implements AircraftService {
 	@Override
 	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public Aircraft readAircraft(@Min(1) long id) {
-		return em.find(Aircraft.class, id);
+		Aircraft entity = em.find(Aircraft.class, id);
+		if (entity==null) {
+			throw new NoResultException("No Aircraft with id "+id+" exists");
+		}
+		return entity;
 	}
-
 
 	@Override
 	@RolesAllowed(Roles.ADMIN)

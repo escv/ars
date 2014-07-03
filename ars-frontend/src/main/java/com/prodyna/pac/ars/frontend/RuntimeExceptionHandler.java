@@ -7,6 +7,7 @@
 package com.prodyna.pac.ars.frontend;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.WebApplicationException;
 import org.controlsfx.control.Notifications;
@@ -17,15 +18,17 @@ import org.controlsfx.control.Notifications;
  */
 public class RuntimeExceptionHandler implements Thread.UncaughtExceptionHandler {
 
+    private ResourceBundle messages = ResourceBundle.getBundle("com.prodyna.pac.ars.frontend.bundles.Messages");
+    
     @Override
     public void uncaughtException(Thread t, Throwable e) {
         final Throwable cause = e.getCause();
         if (cause instanceof InvocationTargetException && ((InvocationTargetException)cause).getTargetException() instanceof WebApplicationException) {
             WebApplicationException wae = (WebApplicationException)((InvocationTargetException)cause).getTargetException();
             if (wae instanceof BadRequestException) {
-                Notifications.create().title("Fehler").text("Die eingegeben Daten können vom Server nicht akzeptiert werden").showError();
+                Notifications.create().title("Fehler").text(messages.getString("exception_badrequest")).showError();
             } else {
-                Notifications.create().title("Fehler").text("Der Server konnte die aktuelle Operation nicht erfolgreich durchführen").showError();
+                Notifications.create().title("Fehler").text(messages.getString("exception_servererror")).showError();
             }
         }
     }
