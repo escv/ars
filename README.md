@@ -8,6 +8,8 @@ Please make sure that Java 8 is installed and used to run the javafx frontend.
 Also make sure the following Security Domains are available:
 Example for wildfly:
 
+
+`
 <security-domain name="ars" cache-type="default">
     <authentication>
         <login-module code="Database" flag="required">
@@ -25,3 +27,4 @@ Example for wildfly:
         <login-module code="UsersRoles" flag="sufficient"/>
     </authentication>
 </security-domain>
+`
