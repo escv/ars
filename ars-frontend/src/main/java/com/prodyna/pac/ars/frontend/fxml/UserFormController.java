@@ -12,7 +12,6 @@ import com.prodyna.pac.ars.masterdata.UserService;
 import com.prodyna.pac.ars.masterdata.model.User;
 import com.prodyna.pac.ars.masterdata.model.UserRole;
 import java.security.MessageDigest;
-import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,7 +20,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.controlsfx.control.SelectableCheckListView;
-import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
 /**
@@ -34,7 +32,6 @@ public class UserFormController extends AbstractCRUDFormController<User> {
     @FXML private TextField mailField;
     @FXML private PasswordField passwordField;
     @FXML private SelectableCheckListView<UserRole> rolesChoice;
-    @FXML private SelectableCheckListView<UserRole> licenseChoice;
     
     @Override
     public void init(Stage aDialog, AbstractCRUDController aController, User user) {

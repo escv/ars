@@ -6,6 +6,7 @@
 
 package com.prodyna.pac.ars.frontend.fxml;
 
+import com.prodyna.pac.ars.frontend.PermissionChecker;
 import com.prodyna.pac.ars.frontend.service.ServiceProxyFactory;
 import com.prodyna.pac.ars.masterdata.AircraftTypeService;
 import com.prodyna.pac.ars.masterdata.model.AircraftType;
@@ -31,8 +32,9 @@ public class AircraftTypeController extends AbstractCRUDController<AircraftType>
 
         entryTable.setItems(entries);
 
-        initTableListener();
-        
+        if (PermissionChecker.getInstance().isAdmin()) {
+            initTableListener();
+        }
     }
     
     @FXML

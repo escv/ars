@@ -6,18 +6,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.text.*?>
+<?import com.prodyna.pac.ars.frontend.PermissionChecker?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" id="ACTAnchorPane" fx:controller="com.prodyna.pac.ars.frontend.fxml.AircraftTypeController" >
-    <Label styleClass="title" text="Aircraft Type Management"/>
+    <fx:define>
+        <PermissionChecker fx:id="permissionChecker"></PermissionChecker>
+    </fx:define>
+    
+    <Label styleClass="title" text="%lbl_act-mgnt"/>
      
     <TableView fx:id="entryTable">
         <columns>
-              <TableColumn text="Name" prefWidth="100">
+              <TableColumn text="%prop_name" prefWidth="100">
                   <cellValueFactory>
                       <PropertyValueFactory property="name" />
                   </cellValueFactory>
               </TableColumn>
           </columns>
     </TableView>
-    <Button onAction="#showCreateForm" text="New Aircraft Type"/>
+    <Button onAction="#showCreateForm" text="%action_new-aircrafttype" visible="${permissionChecker.admin}"/>
 </VBox>

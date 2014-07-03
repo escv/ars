@@ -16,7 +16,7 @@
         <padding>
             <Insets top="15" right="25" bottom="10" left="25"/>
         </padding>
-    
+
         <Text text="Create New" 
             GridPane.columnIndex="0" GridPane.rowIndex="0"
             GridPane.columnSpan="2"/>
@@ -32,5 +32,5 @@
         
         <Button fx:id="deleteButton" styleClass="deleteBtn" GridPane.columnIndex="0" GridPane.rowIndex="4" text="DELETE" onAction="#removeReservation"/>
         <Button GridPane.columnIndex="1" GridPane.rowIndex="4" text="OK" onAction="#submitReservation"/>
-        
+
 </GridPane>

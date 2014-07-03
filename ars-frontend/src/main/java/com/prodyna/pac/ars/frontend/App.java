@@ -4,14 +4,12 @@ import com.prodyna.pac.ars.frontend.service.ServiceProxyFactory;
 import com.prodyna.pac.ars.masterdata.UserService;
 import com.prodyna.pac.ars.masterdata.model.User;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
 
 @SuppressWarnings("restriction")
@@ -21,6 +19,7 @@ public class App extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        Thread.setDefaultUncaughtExceptionHandler(new RuntimeExceptionHandler());
         Dialogs login = Dialogs.create().owner(stage).title("Login");
         Optional<Dialogs.UserInfo> loggedUser = login.showLogin(new Dialogs.UserInfo("",""), (Dialogs.UserInfo param) -> {
             UserService userService = ServiceProxyFactory.createServiceProxy(UserService.class, param.getUserName(), param.getPassword());
@@ -31,7 +30,9 @@ public class App extends Application {
         });
 
         if (loggedUser.isPresent()) {
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/Main.fxml"));
+            Parent root = FXMLLoader.load(
+                    getClass().getResource("fxml/Main.fxml"), 
+                    ResourceBundle.getBundle("com.prodyna.pac.ars.frontend.bundles.Messages"));
             Scene scene = new Scene(root);        
             stage.setTitle("Aircraft Reservation Service by PAC");
             stage.setScene(scene);

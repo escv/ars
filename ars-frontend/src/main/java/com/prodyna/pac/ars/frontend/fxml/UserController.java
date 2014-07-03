@@ -6,6 +6,7 @@
 
 package com.prodyna.pac.ars.frontend.fxml;
 
+import com.prodyna.pac.ars.frontend.PermissionChecker;
 import com.prodyna.pac.ars.frontend.service.ServiceProxyFactory;
 import com.prodyna.pac.ars.masterdata.UserService;
 import com.prodyna.pac.ars.masterdata.model.Aircraft;
@@ -34,7 +35,9 @@ public class UserController extends AbstractCRUDController<User> {
         
         entryTable.setItems(entries);
 
-        initTableListener();
+        if (PermissionChecker.getInstance().isAdmin()) {
+            initTableListener();
+        }
         
     }
     

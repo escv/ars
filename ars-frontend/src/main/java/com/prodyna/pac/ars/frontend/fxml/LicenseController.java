@@ -6,6 +6,7 @@
 
 package com.prodyna.pac.ars.frontend.fxml;
 
+import com.prodyna.pac.ars.frontend.PermissionChecker;
 import com.prodyna.pac.ars.frontend.service.ServiceProxyFactory;
 import com.prodyna.pac.ars.masterdata.model.AircraftType;
 import com.prodyna.pac.ars.masterdata.model.User;
@@ -56,7 +57,9 @@ public class LicenseController extends AbstractCRUDController<UserAircraftTypeLi
         
         entryTable.setItems(entries);
 
-        initTableListener();
+        if (PermissionChecker.getInstance().isAdmin()) {
+            initTableListener();
+        }
     }
     
     @FXML

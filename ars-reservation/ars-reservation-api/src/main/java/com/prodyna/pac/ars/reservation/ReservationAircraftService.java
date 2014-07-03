@@ -11,12 +11,13 @@ import javax.ws.rs.core.MediaType;
 
 import com.prodyna.pac.ars.masterdata.model.Aircraft;
 
+@Path("/reservationaircraft")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Local
 public interface ReservationAircraftService {
 
 	@GET
-	@Path("/aircraft/withoutregistration")
+	@Path("available")
 	List<Aircraft> readAircraftWithoutCurrentRegistration();
 }

@@ -30,7 +30,6 @@ public class UserRoleServiceBean implements UserRoleService {
 	@PersistenceContext
 	private EntityManager em;
 	
-	
 	@Override
 	@RolesAllowed(Roles.ADMIN)
 	public UserRole addUserRole(@NotNull @Valid UserRole UserRole) {
@@ -44,7 +43,7 @@ public class UserRoleServiceBean implements UserRoleService {
 	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public @NotNull List<UserRole> readAllUserRoles() {
 		this.log.debug("Loading list of all UserRoles");
-		return (List<UserRole>) em.createNamedQuery("UserRole.findAll", UserRole.class).getResultList();
+		return em.createNamedQuery("UserRole.findAll", UserRole.class).getResultList();
 	}
 
 	
@@ -75,7 +74,7 @@ public class UserRoleServiceBean implements UserRoleService {
 	@Override
 	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public UserRole readUserRoleByName(@Size(min=3) String name) {
-		return (UserRole) em.createNamedQuery("UserRole.findByName").setParameter("name", name).getSingleResult();
+		return em.createNamedQuery("UserRole.findByName", UserRole.class).setParameter("name", name).getSingleResult();
 	}
 
 }

@@ -4,9 +4,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 <?import java.net.URL?>
-
+<?import com.prodyna.pac.ars.frontend.PermissionChecker?>
     
 <VBox id="root" xmlns:fx="http://javafx.com/fxml/1">
+    <fx:define>
+        <PermissionChecker fx:id="permissionChecker"></PermissionChecker>
+    </fx:define>
     <stylesheets>
         <URL value="@../css/Main.css" />
     </stylesheets>
@@ -15,29 +18,34 @@
     </ImageView>
     <TabPane id="mainTabPane" >
         <tabs>
-            <Tab text="Aircraft Types" closable="false">
+            <Tab text="%tab_myreservations" closable="false">
+                <content>
+                    <fx:include fx:id="reservation" source="MyReservation.fxml"/>
+                </content>
+            </Tab>
+            <Tab text="%tab_availaircrafts" closable="false">
+                <content>
+                    <fx:include fx:id="aircraft" source="FreeAircraft.fxml"/>
+                </content>
+            </Tab>
+            <Tab text="%tab_act" closable="false">
                 <content>
                     <fx:include fx:id="acType" source="AircraftType.fxml"/>
                 </content>
             </Tab>
-            <Tab text="Aircraft" closable="false">
+            <Tab text="%tab_aircrafts" closable="false">
                 <content>
                     <fx:include fx:id="ac" source="Aircraft.fxml"/>
                 </content>
             </Tab>
-            <Tab text="User" closable="false">
+            <Tab text="%tab_users" closable="false" disable="${!permissionChecker.admin}">
                 <content>
                     <fx:include fx:id="user" source="User.fxml"/>
                 </content>
             </Tab>
-            <Tab text="License" closable="false">
+            <Tab text="%tab_licenses" closable="false" disable="${!permissionChecker.admin}">
                 <content>
                     <fx:include fx:id="license" source="License.fxml"/>
-                </content>
-            </Tab>
-            <Tab text="My Reservations" closable="false">
-                <content>
-                    <fx:include fx:id="reservation" source="MyReservation.fxml"/>
                 </content>
             </Tab>
         </tabs>

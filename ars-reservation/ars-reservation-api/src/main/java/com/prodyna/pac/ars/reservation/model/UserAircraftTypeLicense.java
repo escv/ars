@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import com.prodyna.pac.ars.masterdata.model.AircraftType;
@@ -34,9 +36,11 @@ public class UserAircraftTypeLicense implements Serializable {
 	private long id;
 	
 	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date validFrom;
 	
 	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date validUntil;
 	
 	@NotNull

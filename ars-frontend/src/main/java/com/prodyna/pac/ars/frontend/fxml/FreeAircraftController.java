@@ -6,13 +6,12 @@
 
 package com.prodyna.pac.ars.frontend.fxml;
 
-import com.prodyna.pac.ars.frontend.PermissionChecker;
 import com.prodyna.pac.ars.frontend.service.ServiceProxyFactory;
 import com.prodyna.pac.ars.masterdata.AircraftService;
 import com.prodyna.pac.ars.masterdata.model.Aircraft;
 import com.prodyna.pac.ars.masterdata.model.AircraftType;
+import com.prodyna.pac.ars.reservation.ReservationAircraftService;
 import java.net.URL;
-import java.security.Permission;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValueBase;
 import javafx.event.ActionEvent;
@@ -24,16 +23,16 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
  *
  * @author aalbert
  */
-public class AircraftController extends AbstractCRUDController<Aircraft> {
+public class FreeAircraftController extends AbstractCRUDController<Aircraft> {
     
-    private AircraftService acService;
+    private ReservationAircraftService acService;
   
     @FXML private TableColumn<Aircraft, String> typeColumn;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        acService = ServiceProxyFactory.createServiceProxy(AircraftService.class);
-        entries.addAll(acService.readAllAircrafts());
+        acService = ServiceProxyFactory.createServiceProxy(ReservationAircraftService.class);
+        entries.addAll(acService.readAircraftWithoutCurrentRegistration());
         
         typeColumn.setCellValueFactory((CellDataFeatures<Aircraft, String> data) -> {
             final AircraftType at = data.getValue().getType();
@@ -46,9 +45,7 @@ public class AircraftController extends AbstractCRUDController<Aircraft> {
         });  
         entryTable.setItems(entries);
 
-        if (PermissionChecker.getInstance().isAdmin()) {
-            initTableListener();
-        }
+        //initTableListener();
     }
     
     @FXML

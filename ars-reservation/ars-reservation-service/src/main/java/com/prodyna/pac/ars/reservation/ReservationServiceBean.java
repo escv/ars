@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 
 import org.slf4j.Logger;
 
-import com.prodyna.pac.ars.masterdata.model.Aircraft;
 import com.prodyna.pac.ars.reservation.model.Reservation;
 import com.prodyna.pac.ars.service.ejb.PerformanceMonitored;
 import com.prodyna.pac.ars.service.ejb.Roles;
@@ -63,27 +62,24 @@ public class ReservationServiceBean implements ReservationService {
 		log.info("Reservation [{}] removed", id);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	@RolesAllowed(Roles.ADMIN)
 	public @NotNull List<Reservation> readAllReservations() {
-		return (List<Reservation>) em.createNamedQuery("Reservation.findAll").getResultList();
+		return em.createNamedQuery("Reservation.findAll", Reservation.class).getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	@RolesAllowed(Roles.PILOT)
 	public List<Reservation> readAllReservationsForUser(String userName) {
-		return (List<Reservation>) em.createNamedQuery("Reservation.findByUserName").setParameter("userName", userName).getResultList();
+		return em.createNamedQuery("Reservation.findByUserName", Reservation.class).setParameter("userName", userName).getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Reservation> readAllReservationForAircraftAndDateRange(long aircraftId, long begin, long end) {
-		return (List<Reservation>) em.createNamedQuery("Reservation.findByAircraftAndDateRange")
+		return em.createNamedQuery("Reservation.findByAircraftAndDateRange", Reservation.class)
 				.setParameter("aircraftId", aircraftId)
-				.setParameter("begin", new Date(begin), TemporalType.DATE)
-				.setParameter("end", new Date(end), TemporalType.DATE)
+				.setParameter("beginDate", new Date(begin), TemporalType.TIMESTAMP)
+				.setParameter("endDate", new Date(end), TemporalType.TIMESTAMP)
 				.getResultList();
 	}
 

@@ -44,7 +44,7 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public @NotNull List<AircraftType> readAllAircraftTypes() {
 		this.log.debug("Loading list of all aircrafttypes");
-		return (List<AircraftType>) em.createNamedQuery("AircraftType.findAll", AircraftType.class).getResultList();
+		return em.createNamedQuery("AircraftType.findAll", AircraftType.class).getResultList();
 	}
 
 	
@@ -75,7 +75,7 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 	@Override
 	@RolesAllowed({Roles.PILOT, Roles.GUEST})
 	public AircraftType readAircraftTypeByName(@Size(min=3) String name) {
-		return (AircraftType) em.createNamedQuery("AircraftType.findByName").setParameter("name", name).getSingleResult();
+		return em.createNamedQuery("AircraftType.findByName", AircraftType.class).setParameter("name", name).getSingleResult();
 	}
 
 }

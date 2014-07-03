@@ -51,13 +51,10 @@ public class UserAircraftTypeLicenseServiceBean implements
 		log.info("License with ID [{}] was updated", license.getId());
 	}
 
-	
-	
 	@Override
-	@SuppressWarnings("unchecked")
 	@RolesAllowed(Roles.PILOT)
 	public @NotNull List<UserAircraftTypeLicense> readAllLicensesForUser(@Min(1) long userId) {
-		return (List<UserAircraftTypeLicense>) em.createNamedQuery("License.findByUserId").setParameter("userId", userId).getResultList();
+		return em.createNamedQuery("License.findByUserId", UserAircraftTypeLicense.class).setParameter("userId", userId).getResultList();
 	}
 
 	
@@ -68,13 +65,7 @@ public class UserAircraftTypeLicenseServiceBean implements
 		em.remove(licenseToRemove);
 		log.info("UserAircraftTypeLicense [{}] removed", id);
 	}
-/*
-	@Override
-	public boolean checkLicense(long userId, long aircraftType, Date dateBegin,
-			Date dateEnd) {
-		return false;
-	}
-*/
+
 	@Override
 	@RolesAllowed(Roles.ADMIN)
 	public List<UserAircraftTypeLicense> readAllLicenses() {

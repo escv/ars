@@ -6,8 +6,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.text.*?>
+<?import com.prodyna.pac.ars.frontend.PermissionChecker?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.prodyna.pac.ars.frontend.fxml.UserController" >
+    <fx:define>
+        <PermissionChecker fx:id="permissionChecker"></PermissionChecker>
+    </fx:define>
     <Label styleClass="title" text="User Management"/>
      
     <TableView fx:id="entryTable">
@@ -25,5 +29,5 @@
           </columns>
     </TableView>
     
-    <Button onAction="#showCreateForm" text="New User"/>
+    <Button onAction="#showCreateForm" text="New User" visible="${permissionChecker.admin}"/>
 </VBox>

@@ -6,20 +6,25 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.text.*?>
+<?import com.prodyna.pac.ars.frontend.PermissionChecker?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" id="ACTAnchorPane" fx:controller="com.prodyna.pac.ars.frontend.fxml.LicenseController" >
-    <Label styleClass="title" text="User License Management"/>
+    <fx:define>
+        <PermissionChecker fx:id="permissionChecker"></PermissionChecker>
+    </fx:define>
+    
+    <Label styleClass="title" text="%lbl_lic-mgnt"/>
     
     <TableView fx:id="entryTable">
         <columns>
-              <TableColumn fx:id="pilotColumn" text="Pilot" prefWidth="100" />
-              <TableColumn fx:id="aircraftTypeColumn" text="Type" prefWidth="100" />
-              <TableColumn text="Valid From" prefWidth="140">
+              <TableColumn fx:id="pilotColumn" text="%prop_pilot" prefWidth="100" />
+              <TableColumn fx:id="aircraftTypeColumn" text="%prop_type" prefWidth="100" />
+              <TableColumn text="%prop_valid-from" prefWidth="140">
                   <cellValueFactory>
                       <PropertyValueFactory property="validFrom" />
                   </cellValueFactory>
               </TableColumn>
-              <TableColumn text="Valid Unit" prefWidth="140">
+              <TableColumn text="%prop_valid-until" prefWidth="140">
                   <cellValueFactory>
                       <PropertyValueFactory property="validUntil" />
                   </cellValueFactory>
@@ -27,5 +32,5 @@
           </columns>
     </TableView>
     
-    <Button onAction="#showCreateForm" text="New UserLicense"/>
+    <Button onAction="#showCreateForm" text="%action_new-userlicense" visible="${permissionChecker.admin}"/>
 </VBox>

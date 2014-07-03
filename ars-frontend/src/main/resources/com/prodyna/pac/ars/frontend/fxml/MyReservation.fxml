@@ -6,24 +6,29 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.text.*?>
+<?import com.prodyna.pac.ars.frontend.PermissionChecker?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" id="ACTAnchorPane" fx:controller="com.prodyna.pac.ars.frontend.fxml.MyReservationController" >
-    <Label styleClass="title" text="Reservation Management"/>
+    <fx:define>
+        <PermissionChecker fx:id="permissionChecker"></PermissionChecker>
+    </fx:define>
+    
+    <Label styleClass="title" text="%lbl_resv-mgnt"/>
      
     <TableView fx:id="entryTable">
         <columns>
-            <TableColumn fx:id="aircraftColumn" text="Aircraft" prefWidth="100" />
-            <TableColumn text="Begin" prefWidth="100">
+            <TableColumn fx:id="aircraftColumn" text="%prop_aircraft" prefWidth="100" />
+            <TableColumn text="%prop_begin" prefWidth="100">
                   <cellValueFactory>
                       <PropertyValueFactory property="begin" />
                   </cellValueFactory>
             </TableColumn>
-            <TableColumn text="End" prefWidth="100">
+            <TableColumn text="%prop_end" prefWidth="100">
                   <cellValueFactory>
                       <PropertyValueFactory property="end" />
                   </cellValueFactory>
             </TableColumn>
-            <TableColumn text="State" prefWidth="100">
+            <TableColumn text="%prop_resv-state" prefWidth="100">
                   <cellValueFactory>
                       <PropertyValueFactory property="state" />
                   </cellValueFactory>
@@ -31,5 +36,5 @@
           </columns>
     </TableView>
     
-    <Button onAction="#showCreateForm" text="New Reservation"/>
+    <Button onAction="#showCreateForm" text="%action_new-reservation" visible="${permissionChecker.pilot}"/>
 </VBox>

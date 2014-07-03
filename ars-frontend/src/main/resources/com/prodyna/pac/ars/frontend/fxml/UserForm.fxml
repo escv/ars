@@ -11,7 +11,8 @@
 
 <GridPane 
     xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" fx:controller="com.prodyna.pac.ars.frontend.fxml.UserFormController">
-        <stylesheets>
+
+    <stylesheets>
             <URL value="@../css/Main.css" />
         </stylesheets>
         <padding>
@@ -34,9 +35,6 @@
         <Label text="Roles:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
         <SelectableCheckListView fx:id="rolesChoice" GridPane.columnIndex="1" GridPane.rowIndex="4" prefHeight="100" />
 
-        <Label text="License:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-        <SelectableCheckListView fx:id="licenseChoice" GridPane.columnIndex="1" GridPane.rowIndex="5" prefHeight="100" />
-        
         <Button fx:id="deleteButton" styleClass="deleteBtn" GridPane.columnIndex="0" GridPane.rowIndex="6" text="DELETE" onAction="#removeUser"/>
         <Button GridPane.columnIndex="1" GridPane.rowIndex="6" text="OK" onAction="#submitUser"/>
         

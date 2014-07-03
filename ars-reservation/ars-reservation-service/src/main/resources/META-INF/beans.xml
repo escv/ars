@@ -5,6 +5,7 @@
   <class>com.prodyna.pac.ars.service.ejb.PerformanceInterceptor</class>
  </interceptors>
  <decorators>
-  <class>com.prodyna.pac.ars.reservation.ValidationReservationServiceDecorator</class>
+  <class>com.prodyna.pac.ars.reservation.validation.ValidationReservationServiceDecorator</class>
+  <class>com.prodyna.pac.ars.reservation.validation.ValidationLicenseServiceDecorator</class>
  </decorators>
 </beans>
