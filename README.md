@@ -28,3 +28,11 @@ Example for wildfly:
     </authentication>
 </security-domain>
 `
+
+Please make sure to adjust wildfly path in:
+# /ars-reservation-service/src/test/resources/arquillian.xml
+# /ars-masterdata-service/src/test/resources/arquillian.xml
+# /ars-dist/pom.xml
+
+build it with:
+ars-assembly-> mav clean package
