@@ -28,7 +28,7 @@ public class AircraftTypeController extends AbstractCRUDController<AircraftType>
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         actService = ServiceProxyFactory.createServiceProxy(AircraftTypeService.class);
-        entries.addAll(actService.readAllAircraftTypes());
+        reload(null);
 
         entryTable.setItems(entries);
 
@@ -36,6 +36,13 @@ public class AircraftTypeController extends AbstractCRUDController<AircraftType>
             initTableListener();
         }
     }
+
+    @Override
+    public void reload(ActionEvent event) {
+        entries.clear();
+        entries.addAll(actService.readAllAircraftTypes());
+    }
+    
     
     @FXML
     public void showCreateForm(ActionEvent event) {

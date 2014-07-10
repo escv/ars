@@ -3,7 +3,6 @@ package com.prodyna.pac.ars.frontend;
 import com.prodyna.pac.ars.frontend.service.ServiceProxyFactory;
 import com.prodyna.pac.ars.masterdata.UserService;
 import com.prodyna.pac.ars.masterdata.model.User;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +19,9 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Thread.setDefaultUncaughtExceptionHandler(new RuntimeExceptionHandler());
+
         Dialogs login = Dialogs.create().owner(stage).title("Login");
-        Optional<Dialogs.UserInfo> loggedUser = login.showLogin(new Dialogs.UserInfo("",""), (Dialogs.UserInfo param) -> {
+        login.showLogin(new Dialogs.UserInfo("",""), (Dialogs.UserInfo param) -> {
             UserService userService = ServiceProxyFactory.createServiceProxy(UserService.class, param.getUserName(), param.getPassword());
             App.PRINCIPAL = userService.readUserByName(param.getUserName());
             ServiceProxyFactory.USERNAME = param.getUserName();
@@ -29,15 +29,14 @@ public class App extends Application {
             return null;
         });
 
-        if (loggedUser.isPresent()) {
-            Parent root = FXMLLoader.load(
-                    getClass().getResource("fxml/Main.fxml"), 
-                    ResourceBundle.getBundle("com.prodyna.pac.ars.frontend.bundles.Messages"));
-            Scene scene = new Scene(root);        
-            stage.setTitle("Aircraft Reservation Service by PAC");
-            stage.setScene(scene);
-            stage.show();
-        }
+        Parent root = FXMLLoader.load(
+                getClass().getResource("fxml/Main.fxml"), 
+                ResourceBundle.getBundle("com.prodyna.pac.ars.frontend.bundles.Messages"));
+        Scene scene = new Scene(root);        
+        stage.setTitle("Aircraft Reservation Service by PAC");
+        stage.setScene(scene);
+        stage.setWidth(650);
+        stage.show();
     }
 
     /**

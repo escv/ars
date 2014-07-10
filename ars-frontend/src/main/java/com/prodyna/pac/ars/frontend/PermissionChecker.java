@@ -28,7 +28,14 @@ public class PermissionChecker {
         return hasRole("PILOT");
     }
     
+    public boolean isLoggedIn() {
+        return App.PRINCIPAL!=null;
+    }
+    
     private boolean hasRole(String roleName) {
+        if (App.PRINCIPAL==null) {
+            return false;
+        }
         for (UserRole role : App.PRINCIPAL.getRoles()) {
             if (role.getName().equals(roleName)) {
                 return true;

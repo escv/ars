@@ -18,14 +18,14 @@
     </ImageView>
     <TabPane id="mainTabPane" >
         <tabs>
-            <Tab text="%tab_myreservations" closable="false">
-                <content>
-                    <fx:include fx:id="reservation" source="MyReservation.fxml"/>
-                </content>
-            </Tab>
             <Tab text="%tab_availaircrafts" closable="false">
                 <content>
                     <fx:include fx:id="aircraft" source="FreeAircraft.fxml"/>
+                </content>
+            </Tab>
+            <Tab text="%tab_myreservations" closable="false" disable="${!permissionChecker.loggedIn}">
+                <content>
+                    <fx:include fx:id="reservation" source="MyReservation.fxml"/>
                 </content>
             </Tab>
             <Tab text="%tab_act" closable="false">

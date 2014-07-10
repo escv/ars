@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -24,7 +25,7 @@ import com.prodyna.pac.ars.service.ejb.Roles;
 
 @PerformanceMonitored
 @Stateless
-@DeclareRoles({ Roles.ADMIN, Roles.PILOT, Roles.GUEST })
+@DeclareRoles({ Roles.ADMIN, Roles.PILOT })
 public class AircraftServiceBean implements AircraftService {
 
 	@Inject
@@ -49,7 +50,7 @@ public class AircraftServiceBean implements AircraftService {
 	}
 
 	@Override
-	@RolesAllowed({Roles.PILOT, Roles.GUEST})
+	@PermitAll
 	public @NotNull List<Aircraft> readAllAircrafts() {
 		this.log.debug("Loading list of all aircrafts");
 		return em.createNamedQuery("Aircraft.findAll", Aircraft.class).getResultList();
@@ -64,7 +65,7 @@ public class AircraftServiceBean implements AircraftService {
 	}
 
 	@Override
-	@RolesAllowed({Roles.PILOT, Roles.GUEST})
+	@PermitAll
 	public Aircraft readAircraft(@Min(1) long id) {
 		Aircraft entity = em.find(Aircraft.class, id);
 		if (entity==null) {
@@ -83,7 +84,7 @@ public class AircraftServiceBean implements AircraftService {
 
 	
 	@Override
-	@RolesAllowed({Roles.PILOT, Roles.GUEST})
+	@PermitAll
 	public Aircraft readAircraftByName(@Size(min=3) String name) {
 		return em.createNamedQuery("Aircraft.findByName", Aircraft.class).setParameter("name", name).getSingleResult();
 	}

@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.text.*?>
+<?import jfxtras.scene.control.*?>
 <?import java.net.URL?>
 
 <GridPane 
@@ -25,10 +26,12 @@
         <ChoiceBox fx:id="aircraftChoice"  GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
         <Label text="Begin:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <DatePicker fx:id="beginPicker" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <LocalDateTimeTextField fx:id="beginPicker" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
         <Label text="End:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <DatePicker fx:id="endPicker" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <LocalDateTimeTextField fx:id="endPicker" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+        <!--DatePicker fx:id="endPicker" GridPane.columnIndex="1" GridPane.rowIndex="3"/-->
         
         <Button fx:id="deleteButton" styleClass="deleteBtn" GridPane.columnIndex="0" GridPane.rowIndex="4" text="DELETE" onAction="#removeReservation"/>
         <Button GridPane.columnIndex="1" GridPane.rowIndex="4" text="OK" onAction="#submitReservation"/>

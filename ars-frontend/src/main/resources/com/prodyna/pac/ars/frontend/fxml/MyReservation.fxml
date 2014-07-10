@@ -7,6 +7,7 @@
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.text.*?>
 <?import com.prodyna.pac.ars.frontend.PermissionChecker?>
+<?import jfxtras.scene.control.agenda.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" id="ACTAnchorPane" fx:controller="com.prodyna.pac.ars.frontend.fxml.MyReservationController" >
     <fx:define>
@@ -14,8 +15,8 @@
     </fx:define>
     
     <Label styleClass="title" text="%lbl_resv-mgnt"/>
-     
-    <TableView fx:id="entryTable">
+    <Agenda fx:id="calendar" prefHeight="400"></Agenda> 
+    <!--TableView fx:id="entryTable">
         <columns>
             <TableColumn fx:id="aircraftColumn" text="%prop_aircraft" prefWidth="100" />
             <TableColumn text="%prop_begin" prefWidth="100">
@@ -34,7 +35,10 @@
                   </cellValueFactory>
             </TableColumn>
           </columns>
-    </TableView>
+    </TableView-->
     
-    <Button onAction="#showCreateForm" text="%action_new-reservation" visible="${permissionChecker.pilot}"/>
+    <HBox>
+        <Button onAction="#showCreateForm" text="%action_new-reservation" visible="${permissionChecker.pilot}"/>
+        <Button onAction="#reload" text="%action_reload" /> 
+    </HBox>
 </VBox>

@@ -32,5 +32,8 @@
           </columns>
     </TableView>
     
-    <Button onAction="#showCreateForm" text="%action_new-userlicense" visible="${permissionChecker.admin}"/>
+    <HBox>
+        <Button onAction="#showCreateForm" text="%action_new-userlicense" visible="${permissionChecker.admin}"/>
+        <Button onAction="#reload" text="%action_reload" /> 
+    </HBox>
 </VBox>

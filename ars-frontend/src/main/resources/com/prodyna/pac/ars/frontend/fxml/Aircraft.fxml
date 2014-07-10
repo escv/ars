@@ -8,7 +8,7 @@
 <?import javafx.scene.text.*?>
 <?import com.prodyna.pac.ars.frontend.PermissionChecker?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" id="ACTAnchorPane" fx:controller="com.prodyna.pac.ars.frontend.fxml.FreeAircraftController" >
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" id="ACTAnchorPane" fx:controller="com.prodyna.pac.ars.frontend.fxml.AircraftController" >
     <fx:define>
         <PermissionChecker fx:id="permissionChecker"></PermissionChecker>
     </fx:define>
@@ -30,5 +30,8 @@
           </columns>
     </TableView>
     
-    <Button onAction="#showCreateForm" text="%action_new-aircraft" visible="${permissionChecker.admin}" /> 
+    <HBox>
+        <Button onAction="#showCreateForm" text="%action_new-aircraft" visible="${permissionChecker.admin}" /> 
+        <Button onAction="#reload" text="%action_reload" /> 
+    </HBox>
 </VBox>

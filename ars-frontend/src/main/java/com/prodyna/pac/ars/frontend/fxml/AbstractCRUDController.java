@@ -10,6 +10,7 @@ import com.prodyna.pac.ars.frontend.App;
 import com.prodyna.pac.ars.masterdata.model.AircraftType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +49,8 @@ public abstract class AbstractCRUDController <T> implements Initializable {
     }
     
     protected abstract String getFXMLForm();
+    
+    public abstract void reload(ActionEvent event);
     
     protected void initTableListener() {        
         entryTable.setOnMouseClicked(new EventHandler<MouseEvent>() {

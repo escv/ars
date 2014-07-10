@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.ejb.EJBException;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;

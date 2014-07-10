@@ -32,8 +32,12 @@ public class LicenseController extends AbstractCRUDController<UserAircraftTypeLi
   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (!PermissionChecker.getInstance().isLoggedIn()) {
+            return;
+        }
+        
         actService = ServiceProxyFactory.createServiceProxy(UserAircraftTypeLicenseService.class);
-        entries.addAll(actService.readAllLicenses());
+        reload(null);
 
         pilotColumn.setCellValueFactory((TableColumn.CellDataFeatures<UserAircraftTypeLicense, String> data) -> {
             final User user = data.getValue().getUser();
@@ -60,6 +64,12 @@ public class LicenseController extends AbstractCRUDController<UserAircraftTypeLi
         if (PermissionChecker.getInstance().isAdmin()) {
             initTableListener();
         }
+    }
+
+    @Override
+    public void reload(ActionEvent event) {
+        entries.clear();
+        entries.addAll(actService.readAllLicenses());
     }
     
     @FXML

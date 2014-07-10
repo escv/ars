@@ -15,6 +15,9 @@ import com.prodyna.pac.ars.reservation.ReservationService;
 import com.prodyna.pac.ars.reservation.model.Reservation;
 import com.prodyna.pac.ars.reservation.model.ReservationState;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import javafx.collections.FXCollections;
@@ -24,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
+import jfxtras.scene.control.LocalDateTimeTextField;
 
 /**
  *
@@ -32,8 +36,8 @@ import javafx.stage.Stage;
 public class MyReservationFormController extends AbstractCRUDFormController<Reservation> {
 
     @FXML private ChoiceBox<Aircraft> aircraftChoice;
-    @FXML private DatePicker beginPicker;
-    @FXML private DatePicker endPicker;
+    @FXML private LocalDateTimeTextField beginPicker;
+    @FXML private LocalDateTimeTextField endPicker;
 
     @Override
     public void init(Stage aDialog, AbstractCRUDController aController, Reservation reservation) {
@@ -45,11 +49,11 @@ public class MyReservationFormController extends AbstractCRUDFormController<Rese
         this.aircraftChoice.getSelectionModel().select(reservation.getAircraft());
         if (reservation.getBegin()!=null) {
             Instant instant = reservation.getBegin().toInstant();
-            this.beginPicker.setValue(instant.atZone(ZoneId.systemDefault()).toLocalDate());
+            this.beginPicker.setLocalDateTime(LocalDateTime.ofInstant(instant, ZoneId.systemDefault()));
         }
         if (reservation.getEnd()!=null) {
             Instant instant = reservation.getEnd().toInstant();
-            this.endPicker.setValue(instant.atZone(ZoneId.systemDefault()).toLocalDate());
+            this.endPicker.setLocalDateTime(LocalDateTime.ofInstant(instant, ZoneId.systemDefault()));
         }
         this.deleteButton.setVisible(reservation.getId()>0);
     }
@@ -58,10 +62,10 @@ public class MyReservationFormController extends AbstractCRUDFormController<Rese
         ReservationService reservationService = ServiceProxyFactory.createServiceProxy(ReservationService.class);
         entry.setAircraft(this.aircraftChoice.getSelectionModel().getSelectedItem());
         
-        Instant instant = Instant.from(this.beginPicker.getValue().atStartOfDay(ZoneId.systemDefault()));
+        Instant instant = this.beginPicker.getLocalDateTime().atZone(ZoneId.systemDefault()).toInstant();
         entry.setBegin(Date.from(instant));
         
-        instant = Instant.from(this.endPicker.getValue().atStartOfDay(ZoneId.systemDefault()));
+        instant = this.endPicker.getLocalDateTime().atZone(ZoneId.systemDefault()).toInstant();
         entry.setEnd(Date.from(instant));
         
         entry.setState(ReservationState.RESERVED);

@@ -26,4 +26,6 @@
           </columns>
     </TableView>
 
+    <Button onAction="#reload" text="%action_reload" /> 
+
 </VBox>

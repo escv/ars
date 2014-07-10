@@ -9,15 +9,11 @@ package com.prodyna.pac.ars.frontend.fxml;
 import com.prodyna.pac.ars.frontend.PermissionChecker;
 import com.prodyna.pac.ars.frontend.service.ServiceProxyFactory;
 import com.prodyna.pac.ars.masterdata.UserService;
-import com.prodyna.pac.ars.masterdata.model.Aircraft;
-import com.prodyna.pac.ars.masterdata.model.AircraftType;
 import com.prodyna.pac.ars.masterdata.model.User;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.ObservableValueBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
 
 /**
  *
@@ -30,8 +26,11 @@ public class UserController extends AbstractCRUDController<User> {
   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (!PermissionChecker.getInstance().isLoggedIn()) {
+            return;
+        }
         userService = ServiceProxyFactory.createServiceProxy(UserService.class);
-        entries.addAll(userService.readAllUsers());
+        reload(null);
         
         entryTable.setItems(entries);
 
@@ -39,6 +38,12 @@ public class UserController extends AbstractCRUDController<User> {
             initTableListener();
         }
         
+    }
+
+    @Override
+    public void reload(ActionEvent event) {
+        entries.clear();
+        entries.addAll(userService.readAllUsers());
     }
     
     @FXML

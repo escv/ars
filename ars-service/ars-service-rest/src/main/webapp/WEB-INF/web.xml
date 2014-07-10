@@ -15,13 +15,28 @@
   
     <!-- Resource / Role Mapping  -->
     <security-constraint>
-        <display-name>Logged User Area</display-name>
+    	<web-resource-collection>
+    		<web-resource-name>Read Methods</web-resource-name>
+    		<url-pattern>/*</url-pattern>
+    		<http-method>GET</http-method>
+    	</web-resource-collection>
+    	<user-data-constraint>
+    		<transport-guarantee>NONE</transport-guarantee>
+    	</user-data-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+        <display-name>LoggedIn UserArea</display-name>
         <web-resource-collection>
             <web-resource-name>user_resources</web-resource-name>
             <url-pattern>/*</url-pattern>
+            <http-method>DELETE</http-method>
+            <http-method>PUT</http-method>
+            <http-method>POST</http-method>
         </web-resource-collection>
         <auth-constraint>
             <role-name>PILOT</role-name>
+            <role-name>ADMIN</role-name>
         </auth-constraint>
         <user-data-constraint>
     <!-- for now, no SSL -->

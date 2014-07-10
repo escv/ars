@@ -32,7 +32,7 @@ public class FreeAircraftController extends AbstractCRUDController<Aircraft> {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         acService = ServiceProxyFactory.createServiceProxy(ReservationAircraftService.class);
-        entries.addAll(acService.readAircraftWithoutCurrentRegistration());
+        reload(null);
         
         typeColumn.setCellValueFactory((CellDataFeatures<Aircraft, String> data) -> {
             final AircraftType at = data.getValue().getType();
@@ -46,6 +46,12 @@ public class FreeAircraftController extends AbstractCRUDController<Aircraft> {
         entryTable.setItems(entries);
 
         //initTableListener();
+    }
+
+    @Override
+    public void reload(ActionEvent event) {
+        entries.clear();
+        entries.addAll(acService.readAircraftWithoutCurrentRegistration());
     }
     
     @FXML

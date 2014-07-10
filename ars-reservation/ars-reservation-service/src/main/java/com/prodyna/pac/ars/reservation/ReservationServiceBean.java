@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -52,7 +53,7 @@ public class ReservationServiceBean implements ReservationService {
 	}
 
 	@Override
-	@RolesAllowed({Roles.PILOT, Roles.ADMIN})
+	@PermitAll
 	public Reservation readReservation(long id) {
 		Reservation entity = em.find(Reservation.class, id);
 		if (entity==null) {
@@ -78,14 +79,14 @@ public class ReservationServiceBean implements ReservationService {
 	}
 
 	@Override
-	@RolesAllowed(Roles.ADMIN)
+	@PermitAll
 	public @NotNull
 	List<Reservation> readAllReservations() {
 		return em.createNamedQuery("Reservation.findAll", Reservation.class).getResultList();
 	}
 
 	@Override
-	@RolesAllowed(Roles.PILOT)
+	@RolesAllowed({Roles.PILOT, Roles.ADMIN})
 	public List<Reservation> readAllReservationsForUser(String userName) {
 		return em.createNamedQuery("Reservation.findByUserName", Reservation.class).setParameter("userName", userName)
 				.getResultList();
