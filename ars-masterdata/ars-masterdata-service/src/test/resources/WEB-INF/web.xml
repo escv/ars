@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <!-- Roles -->
+	<security-role>
+		<role-name>ADMIN</role-name>
+	</security-role>
+	<security-role>
+		<role-name>PILOT</role-name>
+	</security-role>
+  
+  
+    <!-- Resource / Role Mapping  -->
+    <security-constraint>
+    	<web-resource-collection>
+    		<web-resource-name>Read Methods</web-resource-name>
+    		<url-pattern>/*</url-pattern>
+    		<http-method>GET</http-method>
+    	</web-resource-collection>
+    	<user-data-constraint>
+    		<transport-guarantee>NONE</transport-guarantee>
+    	</user-data-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+        <display-name>LoggedIn UserArea</display-name>
+        <web-resource-collection>
+            <web-resource-name>user_resources</web-resource-name>
+            <url-pattern>/*</url-pattern>
+            <http-method>DELETE</http-method>
+            <http-method>PUT</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>PILOT</role-name>
+            <role-name>ADMIN</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+    <!-- for now, no SSL -->
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+ 
+     <!--Login Prompt-->
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>demo</realm-name>
+    </login-config>
+</web-app>

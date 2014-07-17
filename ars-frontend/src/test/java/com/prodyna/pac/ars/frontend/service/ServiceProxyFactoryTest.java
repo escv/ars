@@ -4,8 +4,6 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.Test;
-
 import com.prodyna.pac.ars.masterdata.AircraftService;
 import com.prodyna.pac.ars.masterdata.AircraftTypeService;
 import com.prodyna.pac.ars.masterdata.model.Aircraft;

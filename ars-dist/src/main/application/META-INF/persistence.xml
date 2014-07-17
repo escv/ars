@@ -11,7 +11,7 @@
 		<jar-file>ars-dist.ear/lib/ars-metadata-api.jar</jar-file>
 		<jar-file>ars-dist.ear/lib/ars-reservation-api.jar</jar-file>
 		<properties>
-			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
 		</properties>

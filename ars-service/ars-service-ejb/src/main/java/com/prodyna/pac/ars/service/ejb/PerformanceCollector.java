@@ -1,11 +1,15 @@
 package com.prodyna.pac.ars.service.ejb;
 
+import java.io.Serializable;
 import java.lang.management.ManagementFactory;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -116,4 +120,21 @@ public class PerformanceCollector implements PerformanceCollectorMBean {
         }
     }
 
+    @Override
+	public Map<String, List<Integer>> getPerformanceData() {
+		return performanceData;
+	}
+
+    @Override
+    public Map<Float, String> listByWorstAverage() {
+    	
+    	TreeMap<Float, String> map = new TreeMap<>();
+    	for (Entry<String, List<Integer>> e : performanceData.entrySet()) {
+    		map.put(average(e.getValue()), e.getKey());
+    	}
+
+    	return map.descendingMap();
+    }
+    
+    
 }

@@ -19,6 +19,7 @@
 					<version>2.4</version>
 					<configuration>
 						<failOnMissingWebXml>false</failOnMissingWebXml>
+						<attachClasses>true</attachClasses>
 					</configuration>
 					<inherited>true</inherited>
 				</plugin>
