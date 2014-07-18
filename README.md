@@ -1,14 +1,14 @@
 ars
 ===
 
-* ARS How to Install
+# ARS How to Install
 
-** Requirements
+## Requirements
 + JBoss Wildfly 8.0
 + JPA 2.0 compliant Database (tested with MySQL 5.6 CE)
 + Java JDK 8 (JavaFX Frontend)
 
-** Wildfly Setup
+## Wildfly Setup
 + Database Driver must be accessible as module (e.g. in WILDFLY\modules\com\mysql\main)
 + DataSource java:jboss/datasources/ArsDS must exist. Minimal Setup might be:
 ```
@@ -50,7 +50,7 @@ ars
 </security-domain>
 ```
 
-** Obtain and Build
+## Obtain and Build
 
 Sourcecode is hosted on GitHub to be obtained using
 
