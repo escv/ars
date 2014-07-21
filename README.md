@@ -56,7 +56,12 @@ Sourcecode is hosted on GitHub to be obtained using
 
 git clone https://github.com/escv/ars.git
 
-After all Files were downloaded successfully, enter directory ars/ars-assembly and invoke
+After all Files were downloaded successfully, the path of you local JBoss/Wildfly Home Folder must be adjusted in the following resources:
++ ars-reservation / ars-reservation-service / src / test / resources / arquillian.xml
++ ars-masterdata / ars-masterdata-service / src / test / resources / arquillian.xml
++ ars-dist / pom.xml
+
+To build a deployment package and frontend, enter directory ars/ars-assembly and invoke
 `mvn clean package`
 
 The resulting zip can be found inside of the target folder. It contains the SQL DDL Statements which must be executed on Datebase representing your DataSource configured above.
